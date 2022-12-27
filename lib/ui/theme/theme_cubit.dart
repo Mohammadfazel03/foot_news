@@ -9,9 +9,9 @@ class ThemeCubit extends HydratedCubit<ThemeState> {
   @override
   ThemeState? fromJson(Map<String, dynamic> json) {
     return ThemeState(
-        themeApp: (json['theme'] == ThemeApp.LightTheme.name)
-            ? ThemeApp.LightTheme
-            : ThemeApp.DarkTheme);
+        themeApp: (json['theme'] == ThemeApp.lightTheme.name)
+            ? ThemeApp.lightTheme
+            : ThemeApp.darkTheme);
   }
 
   @override

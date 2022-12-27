@@ -7,7 +7,7 @@ class ThemeState {
   ThemeState({required this.themeApp});
 
   ThemeState.init() {
-    themeApp = ThemeApp.LightTheme;
+    themeApp = ThemeApp.lightTheme;
   }
 }
 
