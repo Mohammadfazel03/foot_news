@@ -1,6 +1,8 @@
 import 'package:foot_news/data/local/collections/match_league_collection.dart';
 import 'package:isar/isar.dart';
 
+part 'match_collection.g.dart';
+
 @collection
 @Name('match')
 class MatchCollection {
