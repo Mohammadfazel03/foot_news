@@ -28,6 +28,7 @@ class MatchRepositoryImpl extends MatchRepository {
       return DataFailed(e.toString());
     }
   }
+
   @override
   Stream<List<MatchLeague>> getStreamMatches(DateTime date) {
     // TODO: implement getStreamMatches

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foot_news/ui/games/fixture/fixture_tab_bloc.dart';
+import 'package:foot_news/ui/games/fixture/fixture_tab_screen.dart';
 import 'package:foot_news/ui/widgets/tabbar/tab_indicator.dart';
 import 'package:intl/intl.dart';
 
@@ -137,9 +139,10 @@ class _GamesScreenState extends State<GamesScreen>
   List<Widget> getWidgets(Map<DateTime, String> items) {
     List<Widget> screens = [];
     items.forEach((key, value) {
-      screens.add(_TabGameScreen(
-        key: Key(DateFormat('yyyyMMdd').format(key)),
-      ));
+      screens.add(BlocProvider(
+          create: (context) => FixtureTabBloc(),
+          key: Key(DateFormat('yyyyMMdd').format(key)),
+          child: const FixtureTabScreen()));
     });
     return screens;
   }
@@ -159,29 +162,5 @@ class _GamesScreenState extends State<GamesScreen>
 
   @override
   // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
-}
-
-class _TabGameScreen extends StatefulWidget {
-  const _TabGameScreen({Key? key}) : super(key: key);
-
-  @override
-  State<_TabGameScreen> createState() => _TabGameScreenState();
-}
-
-class _TabGameScreenState extends State<_TabGameScreen>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return Container(
-      color: Theme.of(context).primaryColor,
-      child: Center(
-        child: Text('${widget.key}'),
-      ),
-    );
-  }
-
-  @override
   bool get wantKeepAlive => true;
 }
