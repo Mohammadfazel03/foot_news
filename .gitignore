@@ -113,4 +113,5 @@ lib/generated_plugin_registrant.dart
 
 # build_runner files
 *.g.dart
+*.freezed.dart
 # End of https://www.toptal.com/developers/gitignore/api/flutter
