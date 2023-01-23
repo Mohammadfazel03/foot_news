@@ -7,5 +7,5 @@ abstract class MatchRepository {
 
   Future<DataResponse<MatchResponse>> getMatches(String date);
 
-  Future<int> insertMatches(MatchResponse matches);
+  Future<dynamic> insertMatches(MatchResponse matches);
 }

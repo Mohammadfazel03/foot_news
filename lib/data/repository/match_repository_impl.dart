@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:foot_news/data/local/collections/match_collection.dart';
+import 'package:foot_news/data/local/collections/match_league_collection.dart';
 import 'package:foot_news/data/remote/model/match_league.dart';
 import 'package:foot_news/data/remote/model/match_response.dart';
 import 'package:foot_news/data/repository/match_repository.dart';
@@ -31,14 +33,27 @@ class MatchRepositoryImpl extends MatchRepository {
 
   @override
   Stream<List<MatchLeague>> getStreamMatches(DateTime date) {
-    // TODO: implement getStreamMatches
-    throw UnimplementedError();
+    final query = isar.matchLeagueCollections
+        .filter()
+        .matches((q) => q.timeBetween(
+            DateTime(date.year, date.month, date.day),
+            DateTime(date.year, date.month, date.day)
+                .add(const Duration(days: 1))))
+        .build();
+    return query.watch().map(
+        (event) => event.map((e) => MatchLeague.fromCollection(e)).toList());
   }
 
   @override
-  Future<int> insertMatches(MatchResponse matches) {
-    // TODO: implement insertMatches
-    throw UnimplementedError();
+  Future<dynamic> insertMatches(MatchResponse matches) {
+    return isar.writeTxn(() async {
+      // await isar.matchLeagueCollections.putAll((matches.leagues?.map((e) => e.toCollection))?.toList()??[]);
+      matches.leagues?.forEach((element) async {
+        await isar.matchCollections.putAll(
+            (element.matches?.map((e) => e.toCollection).toList()) ?? []);
+        await isar.matchLeagueCollections.put(element.toCollection);
+        await element.toCollection.matches.save();
+      });
+    });
   }
-
 }

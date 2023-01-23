@@ -21,8 +21,8 @@ Future<void> setup() async {
   getIt.registerSingleton<BottomNavCubit>(BottomNavCubit());
 
   // register local data
-  getIt.registerSingletonAsync<Isar>(
-      () async => Isar.open([MatchCollectionSchema, MatchLeagueCollectionSchema]));
+  getIt.registerSingletonAsync<Isar>(() async =>
+      Isar.open([MatchCollectionSchema, MatchLeagueCollectionSchema]));
 
   // register remote data
   getIt.registerSingleton<ApiService>(ApiService());

@@ -15,7 +15,8 @@ class MatchLeagueCollection {
   int? internalRank;
   int? liveRank;
   bool? simpleLeague;
-  
+  String? ccode;
+
   @Backlink(to: 'league')
   final matches = IsarLinks<MatchCollection>();
 }
