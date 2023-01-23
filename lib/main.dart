@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:foot_news/di.dart';
 import 'package:foot_news/ui/home/home_screen.dart';
 import 'package:foot_news/ui/theme/theme.dart';
 import 'package:foot_news/ui/theme/theme_cubit.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await setup();
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorage.webStorageDirectory
@@ -17,8 +19,8 @@ void main() async {
   );
   runApp(MultiBlocProvider(
     providers: [
-      BlocProvider(create: (context) => ThemeCubit()),
-      BlocProvider(create: (context) => TabBloc()),
+      BlocProvider(create: (context) => getIt<ThemeCubit>()),
+      BlocProvider(create: (context) => getIt<TabBloc>()),
     ],
     child: const MyApp(),
   ));

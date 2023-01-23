@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foot_news/data/repository/match_repository_impl.dart';
+import 'package:foot_news/di.dart';
 import 'package:foot_news/ui/games/fixture/fixture_tab_bloc.dart';
 import 'package:foot_news/ui/games/fixture/fixture_tab_screen.dart';
 import 'package:foot_news/ui/widgets/tabbar/tab_indicator.dart';
@@ -143,10 +144,7 @@ class _GamesScreenState extends State<GamesScreen>
     List<Widget> screens = [];
     items.forEach((key, value) {
       screens.add(BlocProvider(
-          create: (context) => FixtureTabBloc(
-              matchRepository: MatchRepositoryImpl(
-                  api: ApiService(), isar: Isar.openSync([])),
-              dateTime: key),
+          create: (context) => getIt<FixtureTabBloc>(param1: key),
           key: Key(DateFormat('yyyyMMdd').format(key)),
           child: const FixtureTabScreen()));
     });

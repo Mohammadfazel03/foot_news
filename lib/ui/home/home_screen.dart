@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foot_news/di.dart';
 import 'package:foot_news/ui/favorites/favorites_screen.dart';
 import 'package:foot_news/ui/games/games_screen.dart';
 import 'package:foot_news/ui/news/news_screen.dart';
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BlocProvider(
-        create: (context) => BottomNavCubit(),
+        create: (context) => getIt<BottomNavCubit>(),
         child: BottomNav(
           controller: _controller,
         ),
