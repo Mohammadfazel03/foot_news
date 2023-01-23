@@ -11,12 +11,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await setup();
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorage.webStorageDirectory
         : await getTemporaryDirectory(),
   );
+  await setup();
+  await getIt.allReady();
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(create: (context) => getIt<ThemeCubit>()),

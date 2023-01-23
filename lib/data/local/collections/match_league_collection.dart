@@ -7,7 +7,8 @@ part 'match_league_collection.g.dart';
 @Name('match_league')
 class MatchLeagueCollection {
   Id id = Isar.autoIncrement;
-  @Index(composite: [CompositeIndex('leagueId')], unique: true, replace: true)
+  @Index(composite: [CompositeIndex('leagueId')], unique: true)
+  // @Index(composite: [CompositeIndex('leagueId')], unique: true, replace: true)
   int? primaryId;
   @Name('leagueId')
   int? leagueId;

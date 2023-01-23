@@ -20,29 +20,32 @@ class FixtureTabBloc extends Bloc<FixtureTabEvent, FixtureTabState> {
   DateTime dateTime;
 
   FixtureTabBloc({required this.matchRepository, required this.dateTime})
-      : super(FixtureTabState.noGame(true, Queue())) {
+      : super(
+            FixtureTabState(isLoading: true, response: null, errors: Queue())) {
     matchRepository.getStreamMatches(dateTime).listen((event) {
       add(FixtureTabEvent.updatedData(event));
     });
-
-    on<FixtureTabEvent>((event, emit) {
-      event.when(updatedData: (List<MatchLeague> response) {
-        emit(FixtureTabState.hasGame(false, response, state.errors));
-      }, updateData: () async {
+    on<FixtureTabEvent>((event, emit) async {
+      if (event is _UpdateData) {
         DataResponse<MatchResponse> response = await matchRepository
             .getMatches(DateFormat('yyyyMMdd').format(dateTime));
-
         if (response is DataSuccess) {
-          int id = await matchRepository.insertMatches(response.data!);
-          if (id <= 0) {
-            state.addError("Error Whene Updated Data");
+          try {
+            await matchRepository.insertMatches(response.data!);
+          } catch (e) {
+            state.addError('Error When update Data');
+            emit(state);
           }
         } else {
           state.addError(response.error!);
+          emit(state);
         }
-      }, errorShown: () {
+      } else if (event is _UpdatedData) {
+        emit(state.copyWith(isLoading: false, response: event.response));
+      } else if (event is _ErrorShown) {
         state.errorShown();
-      });
+        emit(state);
+      }
     });
   }
 }

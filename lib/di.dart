@@ -1,6 +1,7 @@
 import 'package:foot_news/data/local/collections/match_collection.dart';
 import 'package:foot_news/data/local/collections/match_league_collection.dart';
 import 'package:foot_news/data/remote/api_service.dart';
+import 'package:foot_news/data/repository/match_repository.dart';
 import 'package:foot_news/data/repository/match_repository_impl.dart';
 import 'package:foot_news/ui/games/fixture/fixture_tab_bloc.dart';
 import 'package:foot_news/ui/theme/theme_cubit.dart';
@@ -16,17 +17,15 @@ Future<void> setup() async {
   getIt.registerSingleton<ThemeCubit>(ThemeCubit());
   getIt.registerSingleton<TabBloc>(TabBloc());
   getIt.registerFactoryParam<FixtureTabBloc, DateTime, void>(
-      (dateTime, param) =>
+      (dateTime, _) =>
           FixtureTabBloc(matchRepository: getIt(), dateTime: dateTime));
   getIt.registerSingleton<BottomNavCubit>(BottomNavCubit());
 
   // register local data
-  getIt.registerSingletonAsync<Isar>(() async =>
-      Isar.open([MatchCollectionSchema, MatchLeagueCollectionSchema]));
-
+  getIt.registerSingleton<Isar>(await Isar.open([MatchCollectionSchema, MatchLeagueCollectionSchema]));
   // register remote data
   getIt.registerSingleton<ApiService>(ApiService());
 
   // register repository
-  getIt.registerFactory(() => MatchRepositoryImpl(api: getIt(), isar: getIt()));
+  getIt.registerFactory<MatchRepository>(() => MatchRepositoryImpl(api: getIt(), isar: getIt()));
 }

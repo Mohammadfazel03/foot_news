@@ -47,7 +47,7 @@ class Match with _$Match {
         ..matchId = id!
         ..status = status?.toCollection
         ..statusId = statusId
-        ..time = DateTime.parse('dd.MM.yyyy HH:mm')
+        ..time = DateFormat('dd.MM.yyyy HH:mm').parse(time!)
         ..timeTs = timeTS
         ..tournamentStage = tournamentStage;
 }
