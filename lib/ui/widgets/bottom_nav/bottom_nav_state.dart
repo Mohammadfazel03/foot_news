@@ -1,15 +1,7 @@
 part of 'bottom_nav_cubit.dart';
 
+@freezed
+class BottomNavState with _$BottomNavState{
 
-class BottomNavState {
-  late final int index;
-  late final BottomNavItem navItem;
-
-  BottomNavState({required this.index, required this.navItem});
-
-  BottomNavState.init() {
-    index = 0;
-    navItem = BottomNavItem.matches;
-  }
-
+  const factory BottomNavState({required int index, required BottomNavItem navItem}) = _BottomNavState;
 }

@@ -45,6 +45,8 @@ class FixtureTabBloc extends Bloc<FixtureTabEvent, FixtureTabState> {
       } else if (event is _ErrorShown) {
         state.errorShown();
         emit(state);
+      } else if (event is _RefreshData) {
+        emit(state.copyWith(isLoading: true));
       }
     });
   }

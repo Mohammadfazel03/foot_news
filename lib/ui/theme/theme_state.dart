@@ -1,13 +1,11 @@
 part of 'theme_cubit.dart';
 
-class ThemeState {
+@freezed
+class ThemeState with _$ThemeState {
 
-  late final ThemeApp themeApp;
+  const ThemeState._();
 
-  ThemeState({required this.themeApp});
-
-  ThemeState.init() {
-    themeApp = ThemeApp.lightTheme;
-  }
+  const factory ThemeState({@JsonKey(name: 'theme') required ThemeApp themeApp}) = _ThemeState;
+  factory ThemeState.fromJson(Map<String, Object?> json) => _$ThemeStateFromJson(json);
 }
 

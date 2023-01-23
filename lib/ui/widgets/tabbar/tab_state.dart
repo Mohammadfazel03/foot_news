@@ -1,11 +1,14 @@
 part of 'tab_bloc.dart';
 
-class TabState {
-  late final Tab tab;
+@freezed
+class TabState with _$TabState {
+  // late final Tab tab;
 
-  TabState({required this.tab});
+  const TabState._();
 
-  TabState.init() {
+  const factory TabState({required Tab tab}) = _TabState;
+
+  static TabState init() {
     SplayTreeMap<DateTime, String> items = SplayTreeMap();
 
     for (int i = -2; i <= 2; i++) {
@@ -17,11 +20,8 @@ class TabState {
       }
     }
     int tabPosition = 2;
-    tab = Tab(count: items.length, items: items, position: tabPosition);
-  }
-
-  TabState copyWith(newTab) {
-    return TabState(tab: newTab);
+    return TabState(
+        tab: Tab(count: items.length, items: items, position: tabPosition));
   }
 
   TabState addItem(bool addToEnd, int currentPosition) {
@@ -45,10 +45,10 @@ class TabState {
   }
 }
 
-class Tab {
-  int count;
-  SplayTreeMap<DateTime, String> items;
-  int position;
-
-  Tab({required this.count, required this.items, required this.position});
+@freezed
+class Tab with _$Tab {
+  const factory Tab(
+      {required int count,
+      required SplayTreeMap<DateTime, String> items,
+      required int position}) = _Tab;
 }

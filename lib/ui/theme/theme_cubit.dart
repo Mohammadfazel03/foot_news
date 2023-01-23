@@ -1,21 +1,21 @@
 import 'package:foot_news/ui/theme/theme.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'theme_state.dart';
+part 'theme_cubit.freezed.dart';
+part 'theme_cubit.g.dart';
 
 class ThemeCubit extends HydratedCubit<ThemeState> {
-  ThemeCubit() : super(ThemeState.init());
+  ThemeCubit() : super(const ThemeState(themeApp: ThemeApp.lightTheme));
 
   @override
   ThemeState? fromJson(Map<String, dynamic> json) {
-    return ThemeState(
-        themeApp: (json['theme'] == ThemeApp.lightTheme.name)
-            ? ThemeApp.lightTheme
-            : ThemeApp.darkTheme);
+    return ThemeState.fromJson(json);
   }
 
   @override
-  Map<String, String>? toJson(ThemeState state) {
-    return {'theme': state.themeApp.name};
+  Map<String, dynamic> toJson(ThemeState state) {
+    return state.toJson();
   }
 }
