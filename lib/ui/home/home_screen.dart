@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foot_news/di.dart';
 import 'package:foot_news/ui/favorites/favorites_screen.dart';
 import 'package:foot_news/ui/games/games_screen.dart';
+import 'package:foot_news/ui/home/widgets/bottom_nav/bottom_nav.dart';
+import 'package:foot_news/ui/home/widgets/bottom_nav/bottom_nav_cubit.dart';
 import 'package:foot_news/ui/news/news_screen.dart';
 import 'package:foot_news/ui/setting/setting_screen.dart';
-import 'package:foot_news/ui/widgets/bottom_nav/bottom_nav_cubit.dart';
-import '../widgets/bottom_nav/bottom_nav.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

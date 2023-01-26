@@ -4,12 +4,12 @@ import 'package:foot_news/data/repository/match_repository_impl.dart';
 import 'package:foot_news/di.dart';
 import 'package:foot_news/ui/games/fixture/fixture_tab_bloc.dart';
 import 'package:foot_news/ui/games/fixture/fixture_tab_screen.dart';
-import 'package:foot_news/ui/widgets/tabbar/tab_indicator.dart';
+import 'package:foot_news/ui/games/widgets/tabbar/tab_indicator.dart';
+import 'package:foot_news/ui/games/widgets/tabbar/tab_bloc.dart' as tab_bloc;
 import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
 
 import '../../data/remote/api_service.dart';
-import '../widgets/tabbar/tab_bloc.dart' as tab_bloc;
 
 class GamesScreen extends StatefulWidget {
   const GamesScreen({Key? key}) : super(key: key);
