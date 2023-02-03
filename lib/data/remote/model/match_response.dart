@@ -2,6 +2,7 @@ import 'package:foot_news/data/remote/model/match_league.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'match_response.freezed.dart';
+
 part 'match_response.g.dart';
 
 @freezed
@@ -13,4 +14,3 @@ class MatchResponse with _$MatchResponse {
 
   factory MatchResponse.fromJson(Map<String, Object?> json) => _$MatchResponseFromJson(json);
 }
-

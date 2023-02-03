@@ -5,7 +5,6 @@ class CustomTabIndicator extends Decoration {
 
   final Color color;
 
-
   final double indicatorHeight;
 
   const CustomTabIndicator({
@@ -33,12 +32,12 @@ class _CustomPainter extends BoxPainter {
   final double indicatorHeight;
 
   _CustomPainter(
-      this.decoration,
-      VoidCallback? onChanged,
-      this.radius,
-      this.color,
-      this.indicatorHeight,
-      ) : super(onChanged);
+    this.decoration,
+    VoidCallback? onChanged,
+    this.radius,
+    this.color,
+    this.indicatorHeight,
+  ) : super(onChanged);
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
@@ -46,7 +45,7 @@ class _CustomPainter extends BoxPainter {
 
     final Paint paint = Paint();
     double xAxisPos = offset.dx + configuration.size!.width / 2;
-    double yAxisPos = offset.dy + configuration.size!.height - indicatorHeight/2;
+    double yAxisPos = offset.dy + configuration.size!.height - indicatorHeight / 2;
     paint.color = color;
 
     RRect fullRect = RRect.fromRectAndCorners(

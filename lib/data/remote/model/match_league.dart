@@ -22,20 +22,7 @@ class MatchLeague with _$MatchLeague {
     @JsonKey(name: 'simpleLeague') bool? simpleLeague,
   }) = _MatchLeague;
 
-  factory MatchLeague.fromJson(Map<String, Object?> json) =>
-      _$MatchLeagueFromJson(json);
-
-  factory MatchLeague.fromCollection(MatchLeagueCollection collection) =>
-      MatchLeague(
-          ccode: collection.ccode,
-          id: collection.leagueId,
-          primaryId: collection.primaryId,
-          name: collection.name,
-          matches:
-              collection.matches.map((e) => Match.fromCollection(e)).toList(),
-          internalRank: collection.internalRank,
-          liveRank: collection.liveRank,
-          simpleLeague: collection.simpleLeague);
+  factory MatchLeague.fromJson(Map<String, Object?> json) => _$MatchLeagueFromJson(json);
 
   MatchLeagueCollection get toCollection => MatchLeagueCollection()
     ..leagueId = id

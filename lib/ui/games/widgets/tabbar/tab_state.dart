@@ -20,8 +20,7 @@ class TabState with _$TabState {
       }
     }
     int tabPosition = 2;
-    return TabState(
-        tab: Tab(count: items.length, items: items, position: tabPosition));
+    return TabState(tab: Tab(count: items.length, items: items, position: tabPosition));
   }
 
   TabState addItem(bool addToEnd, int currentPosition) {
@@ -40,8 +39,7 @@ class TabState with _$TabState {
       position += 3;
     }
 
-    return TabState(
-        tab: Tab(count: items.length, items: items, position: position));
+    return TabState(tab: Tab(count: items.length, items: items, position: position));
   }
 }
 

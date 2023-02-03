@@ -6,7 +6,7 @@ part 'match_collection.g.dart';
 @collection
 @Name('match')
 class MatchCollection {
-  Id id = Isar.autoIncrement;
+  Id? id;
   @Index(unique: true, replace: true)
   late int matchId;
   late DateTime time;
@@ -16,6 +16,7 @@ class MatchCollection {
   String? tournamentStage;
   StatusMatchEmbedded? status;
   int? timeTs;
+  bool isFavourite = false;
 
   final league = IsarLink<MatchLeagueCollection>();
 }
@@ -34,4 +35,13 @@ class StatusMatchEmbedded {
   bool? started;
   bool? cancelled;
   bool? finished;
+  bool? ongoing;
+  LiveTimeStatusEmbedded? liveTime;
+  LiveTimeStatusEmbedded? reason;
+}
+
+@embedded
+class LiveTimeStatusEmbedded {
+  String? short;
+  String? long;
 }

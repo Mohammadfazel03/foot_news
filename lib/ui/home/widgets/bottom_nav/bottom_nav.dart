@@ -16,8 +16,8 @@ class BottomNav extends StatelessWidget {
     return BlocBuilder<BottomNavCubit, BottomNavState>(
       builder: (context, state) {
         return ClipRRect(
-          borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(8), topLeft: Radius.circular(8)),
+          borderRadius:
+              const BorderRadius.only(topRight: Radius.circular(8), topLeft: Radius.circular(8)),
           child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               showUnselectedLabels: true,
@@ -27,28 +27,23 @@ class BottomNav extends StatelessWidget {
               currentIndex: state.index,
               onTap: (index) {
                 _controller.animateToPage(index,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.linear);
+                    duration: const Duration(milliseconds: 300), curve: Curves.linear);
                 switch (index) {
                   case 0:
-                    BlocProvider.of<BottomNavCubit>(context)
-                        .setIndex(index, BottomNavItem.matches);
+                    BlocProvider.of<BottomNavCubit>(context).setIndex(index, BottomNavItem.matches);
                     break;
                   case 1:
-                    BlocProvider.of<BottomNavCubit>(context)
-                        .setIndex(index, BottomNavItem.news);
+                    BlocProvider.of<BottomNavCubit>(context).setIndex(index, BottomNavItem.news);
                     break;
                   case 2:
                     BlocProvider.of<BottomNavCubit>(context)
                         .setIndex(index, BottomNavItem.favorites);
                     break;
                   case 3:
-                    BlocProvider.of<BottomNavCubit>(context)
-                        .setIndex(index, BottomNavItem.setting);
+                    BlocProvider.of<BottomNavCubit>(context).setIndex(index, BottomNavItem.setting);
                     break;
                   default:
-                    BlocProvider.of<BottomNavCubit>(context)
-                        .setIndex(0, BottomNavItem.matches);
+                    BlocProvider.of<BottomNavCubit>(context).setIndex(0, BottomNavItem.matches);
                     break;
                 }
               },
@@ -58,8 +53,7 @@ class BottomNav extends StatelessWidget {
                       const AssetImage('assets/images/nav-ball.png'),
                       color: Theme.of(context).colorScheme.secondary,
                     ),
-                    icon: const ImageIcon(
-                        AssetImage('assets/images/nav-ball.png')),
+                    icon: const ImageIcon(AssetImage('assets/images/nav-ball.png')),
                     label: 'Matches'),
                 BottomNavigationBarItem(
                     activeIcon: Icon(

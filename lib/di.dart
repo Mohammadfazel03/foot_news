@@ -17,8 +17,8 @@ Future<void> setup() async {
   // register bloc
   getIt.registerLazySingleton<ThemeCubit>(() => ThemeCubit());
   getIt.registerLazySingleton<TabBloc>(() => TabBloc());
-  getIt.registerFactoryParam<FixtureTabBloc, DateTime, void>((dateTime, _) =>
-      FixtureTabBloc(matchRepository: getIt(), dateTime: dateTime));
+  getIt.registerFactoryParam<FixtureTabBloc, DateTime, void>(
+      (dateTime, _) => FixtureTabBloc(matchRepository: getIt(), dateTime: dateTime));
   getIt.registerLazySingleton<BottomNavCubit>(() => BottomNavCubit());
   getIt.registerLazySingleton<FilterChipCubit>(() => FilterChipCubit());
 
@@ -29,6 +29,5 @@ Future<void> setup() async {
   getIt.registerSingleton<ApiService>(ApiService());
 
   // register repository
-  getIt.registerFactory<MatchRepository>(
-      () => MatchRepositoryImpl(api: getIt(), isar: getIt()));
+  getIt.registerFactory<MatchRepository>(() => MatchRepositoryImpl(api: getIt(), isar: getIt()));
 }

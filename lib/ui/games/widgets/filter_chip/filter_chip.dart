@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,21 +22,19 @@ class _FilterChipState extends State<FilterChip> {
     return BlocBuilder<FilterChipCubit, FilterChipState>(
       builder: (context, state) {
         return Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          runAlignment: WrapAlignment.center,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          alignment: WrapAlignment.start,
-          children: items.map((e) {
-            var isSelected = state.selectedItems.contains(e['index'] as int);
-            return _item(isSelected, e['name'].toString(), () {
-              isSelected
-                  ? BlocProvider.of<FilterChipCubit>(context)
-                      .unSelectItem(e['index'] as int)
-                  : BlocProvider.of<FilterChipCubit>(context)
-                      .selectItem(e['index'] as int);
-            });
-          }).toList(growable: false));
+            spacing: 8,
+            runSpacing: 8,
+            runAlignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            alignment: WrapAlignment.start,
+            children: items.map((e) {
+              var isSelected = state.selectedItems.contains(e['index'] as int);
+              return _item(isSelected, e['name'].toString(), () {
+                isSelected
+                    ? BlocProvider.of<FilterChipCubit>(context).unSelectItem(e['index'] as int)
+                    : BlocProvider.of<FilterChipCubit>(context).selectItem(e['index'] as int);
+              });
+            }).toList(growable: false));
       },
     );
   }
@@ -52,9 +48,8 @@ class _FilterChipState extends State<FilterChip> {
       onTap: onTap,
       child: DecoratedBox(
         decoration: BoxDecoration(
-            color: isSelected
-                ? Theme.of(context).colorScheme.secondary
-                : Theme.of(context).primaryColorDark,
+            color:
+                isSelected ? Theme.of(context).colorScheme.secondary : const Color.fromRGBO(0, 0, 0, 0.3),
             borderRadius: const BorderRadius.all(Radius.circular(8))),
         child: Padding(
           padding: const EdgeInsets.all(8.0),

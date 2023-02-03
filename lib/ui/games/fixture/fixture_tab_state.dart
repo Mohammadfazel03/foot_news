@@ -6,14 +6,31 @@ class FixtureTabState with _$FixtureTabState {
 
   const factory FixtureTabState(
       {required bool isLoading,
-      required List<MatchLeague>? response,
-      required Queue<String> errors}) = _FixtureTabState;
+      required List<FixtureTabItem>? response,
+      required Queue<String> errors,
+      required bool isAllResult}) = _FixtureTabState;
 
-  errorShown() {
-    errors.removeFirst();
+  Queue<String> errorShown() {
+    Queue<String> queue = Queue<String>();
+    queue.addAll(errors);
+    queue.removeFirst();
+    return queue;
   }
 
-  addError(String error) {
-    errors.addFirst(error);
+  Queue<String> addError(String error) {
+    Queue<String> queue = Queue<String>();
+    queue.addAll(errors);
+    queue.add(error);
+    return queue;
   }
 }
+
+@freezed
+class FixtureTabItem with _$FixtureTabItem {
+  const FixtureTabItem._();
+
+  const factory FixtureTabItem(
+      {required FixtureType type, MatchEntity? match, MatchLeagueEntity? league}) = _FixtureTabItem;
+}
+
+enum FixtureType { league, match }

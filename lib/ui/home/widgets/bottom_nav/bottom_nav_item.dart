@@ -1,6 +1,1 @@
-enum BottomNavItem{
-  matches,
-  news,
-  favorites,
-  setting
-}
+enum BottomNavItem { matches, news, favorites, setting }
