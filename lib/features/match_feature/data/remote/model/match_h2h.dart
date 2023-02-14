@@ -30,19 +30,32 @@ class MatchesBean with _$MatchesBean {
   }) = _MatchesBean;
 
   factory MatchesBean.fromJson(Map<String, Object?> json) {
+    int? homeScore;
+    int? awayScore;
     if (json['status'] != null && json['status'] is Map) {
       if ((json['status']! as Map<String, Object?>)['scoreStr'] != null) {
         final temp = (json['status']! as Map<String, Object?>)['scoreStr'].toString().split(' ');
-        if(json['home'] != null && json['home'] is Map && json['away'] != null && json['away'] is Map) {
-          (json['home']! as Map<String, Object?>)['score'] = int.parse(temp[0]);
-          (json['away']! as Map<String, Object?>)['score'] = int.parse(temp[2]);
-        }
+        homeScore = int.parse(temp[0]);
+        awayScore = int.parse(temp[2]);
       }
+    }
+    if (json['home'] != null &&
+        json['home'] is Map &&
+        json['away'] != null &&
+        json['away'] is Map) {
+      (json['home']! as Map<String, Object?>)['score'] = homeScore;
+      (json['away']! as Map<String, Object?>)['score'] = awayScore;
+      (json['home']! as Map<String, Object?>)['id'] =
+          int.parse((json['home']! as Map<String, Object?>)['id'].toString());
+      (json['away']! as Map<String, Object?>)['id'] =
+          int.parse((json['away']! as Map<String, Object?>)['id'].toString());
+    }
+
+    if (json['league'] != null && json['league'] is Map) {
+      (json['league'] as Map)['id'] = int.parse((json['league'] as Map)['id']);
     }
     return _$MatchesBeanFromJson(json);
   }
-//
-// factory MatchesBean.fromJson(Map<String, dynamic> json) => _$MatchesBeanFromJson(json);
-
-
+  //
+  // factory MatchesBean.fromJson(Map<String, dynamic> json) => _$MatchesBeanFromJson(json);
 }

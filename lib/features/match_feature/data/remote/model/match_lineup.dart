@@ -7,9 +7,10 @@ part 'match_lineup.g.dart';
 @freezed
 class Lineup with _$Lineup {
   const factory Lineup({
-    @JsonKey(name: 'lineup') List<LineupBean>? lineup,
+    @JsonKey(name: 'lineup') List<LineupBean?>? lineup,
     @JsonKey(name: 'bench') Bench? bench,
     @JsonKey(name: 'coaches') Coach? coaches,
+    @JsonKey(name: 'naPlayers') InjuredPlayer? naPlayers,
     @JsonKey(name: 'teamRatings') TeamRatings? teamRatings,
     @JsonKey(name: 'hasFantasy') bool? hasFantasy,
     @JsonKey(name: 'usingEnetpulseLineup') bool? usingEnetpulseLineup,
@@ -21,10 +22,20 @@ class Lineup with _$Lineup {
 }
 
 @freezed
+class InjuredPlayer with _$InjuredPlayer {
+  const factory InjuredPlayer({
+    @JsonKey(name: 'sides') List<String>? sides,
+    @JsonKey(name: 'naPlayersArr') List<List<LineupPlayer?>?>? naPlayersArr,
+  }) = _InjuredPlayer;
+
+  factory InjuredPlayer.fromJson(Map<String, Object?> json) => _$InjuredPlayerFromJson(json);
+}
+
+@freezed
 class Coach with _$Coach {
   const factory Coach({
     @JsonKey(name: 'sides') List<String>? sides,
-    @JsonKey(name: 'coachesArr') List<List<LineupPlayer>>? coachesArr,
+    @JsonKey(name: 'coachesArr') List<List<LineupPlayer?>?>? coachesArr,
   }) = _Coach;
 
   factory Coach.fromJson(Map<String, Object?> json) => _$CoachFromJson(json);
@@ -34,7 +45,7 @@ class Coach with _$Coach {
 class Bench with _$Bench {
   const factory Bench({
     @JsonKey(name: 'sides') List<String>? sides,
-    @JsonKey(name: 'benchArr') List<List<LineupPlayer>>? benchArr,
+    @JsonKey(name: 'benchArr') List<List<LineupPlayer?>?>? benchArr,
   }) = _Bench;
 
   factory Bench.fromJson(Map<String, Object?> json) => _$BenchFromJson(json);
@@ -46,8 +57,9 @@ class LineupBean with _$LineupBean {
   const factory LineupBean({
     @JsonKey(name: 'teamId') int? teamId,
     @JsonKey(name: 'teamName') String? teamName,
-    @JsonKey(name: 'bench') List<LineupPlayer>? bench,
-    @JsonKey(name: 'players') List<List<LineupPlayer>>? players,
+    @JsonKey(name: 'bench') List<LineupPlayer?>? bench,
+    @JsonKey(name: 'nonAvailablePlayers') List<List<LineupPlayer?>?>? nonAvailablePlayers,
+    @JsonKey(name: 'players') List<List<LineupPlayer?>?>? players,
     @JsonKey(name: 'lineup') String? lineup,
   }) = _LineupBean;
 
@@ -73,11 +85,34 @@ class LineupPlayer with _$LineupPlayer {
     @JsonKey(name: 'events') Object? events,
     @JsonKey(name: 'rating') PlayerRating? rating,
     @JsonKey(name: 'minutesPlayed') int? minutesPlayed,
+    @JsonKey(name: 'naInfo') InjuredInfo? injuredInfo,
   }) = _LineupPlayer;
 
-  factory LineupPlayer.fromJson(Map<String, Object?> json) => _$LineupPlayerFromJson(json);
+  factory LineupPlayer.fromJson(Map<String, Object?> json) {
+    if (json['id'] != null && json['id'] is int) {
+      json['id'] = json['id'].toString();
+    }
+    return _$LineupPlayerFromJson(json);
+  }
+
+  // factory LineupPlayer.fromJson(Map<String, Object?> json) => _$LineupPlayerFromJson(json);
+
 }
 
+@freezed
+class InjuredInfo with _$InjuredInfo {
+  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
+  const factory InjuredInfo({
+  @JsonKey(name: 'id') int? id,
+  @JsonKey(name: 'name') String? name,
+  @JsonKey(name: 'naReason') String? reason,
+  @JsonKey(name: 'expectedReturn') String? expectedReturn,
+  @JsonKey(name: 'injury') bool? injury,
+  }) = _InjuredInfo;
+
+  factory InjuredInfo.fromJson(Map<String, dynamic> json) =>
+      _$InjuredInfoFromJson(json);
+}
 
 @freezed
 class PlayerRating with _$PlayerRating {

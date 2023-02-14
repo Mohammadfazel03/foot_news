@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foot_news/features/match_feature/presentation/game_details_screen.dart';
 import 'package:foot_news/features/matches_feature/data/entity/match_entity.dart';
 import 'package:foot_news/features/matches_feature/data/entity/match_league_entity.dart';
 import 'package:foot_news/features/matches_feature/presentation/bloc/fixture_tab_bloc.dart';
-import 'package:foot_news/features/matches_feature/presentation/widget/filter_chip/filter_chip.dart' as widget;
+import 'package:foot_news/features/matches_feature/presentation/widget/filter_chip/filter_chip.dart'
+    as widget;
 import 'package:foot_news/features/matches_feature/presentation/widget/filter_chip/filter_chip_cubit.dart';
 import 'package:intl/intl.dart';
 
@@ -260,156 +262,162 @@ class _FixtureTabScreenState extends State<FixtureTabScreen> with AutomaticKeepA
   }
 
   Widget _matchItem(MatchEntity matchEntity) {
-    return Container(
-      height: 48,
-      color: Theme.of(context).primaryColor,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            flex: 4,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(width: 8),
-                IconButton(
-                  icon: Icon(matchEntity.isFavourite ? Icons.star : Icons.star_outline),
-                  color: matchEntity.isFavourite
-                      ? Theme.of(context).colorScheme.secondary
-                      : Theme.of(context).unselectedWidgetColor,
-                  onPressed: () {
-                    context
-                        .read<FixtureTabBloc>()
-                        .add(FixtureTabEventToggleFavorite(matchEntity: matchEntity));
-                  },
-                ),
-                const SizedBox(width: 8),
-                Flexible(
-                    child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CachedNetworkImage(
-                              placeholder: (context, string) =>
-                                  Image.asset('assets/images/team_placeholder.png'),
-                              errorWidget: (context, string, error) =>
-                                  Image.asset('assets/images/team_placeholder.png'),
-                              imageUrl:
-                                  'https://images.fotmob.com/image_resources/logo/teamlogo/${matchEntity.home?.id}_xsmall.png',
-                              height: 16,
-                              width: 16),
-                          const SizedBox(width: 8),
-                          Flexible(
-                              child: Text(
-                            "${matchEntity.home?.name}",
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            style: const TextStyle(fontSize: 12, color: Colors.white),
-                          ))
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CachedNetworkImage(
-                              placeholder: (context, string) =>
-                                  Image.asset('assets/images/team_placeholder.png'),
-                              errorWidget: (context, string, error) =>
-                                  Image.asset('assets/images/team_placeholder.png'),
-                              imageUrl:
-                                  'https://images.fotmob.com/image_resources/logo/teamlogo/${matchEntity.away?.id}_xsmall.png',
-                              height: 16,
-                              width: 16),
-                          const SizedBox(width: 8),
-                          Flexible(
-                              child: Text(
-                            "${matchEntity.away?.name}",
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            style: const TextStyle(fontSize: 12, color: Colors.white),
-                          ))
-                        ],
-                      ),
-                    )
-                  ],
-                ))
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Row(
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => GameDetailsScreen(matchEntity: matchEntity)));
+      },
+      child: Container(
+        height: 48,
+        color: Theme.of(context).primaryColor,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              flex: 4,
+              child: Row(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  if (matchEntity.status?.started == true) ...[
-                    // SizedBox(width: 8),
-                    Text(
-                      "${matchEntity.status?.liveTime?.short ?? matchEntity.status?.reason?.short}",
-                      style: TextStyle(color: Theme.of(context).colorScheme.secondary),
-                    ),
-                    // SizedBox(width: 8),
-                    Flexible(
-                        child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Flexible(
-                          flex: 1,
-                          child: Text(
-                            "${matchEntity.home?.score}",
-                            style: TextStyle(color: Theme.of(context).colorScheme.secondary),
-                            maxLines: 1,
-                            overflow: TextOverflow.fade,
-                          ),
+                  const SizedBox(width: 8),
+                  IconButton(
+                    icon: Icon(matchEntity.isFavourite ? Icons.star : Icons.star_outline),
+                    color: matchEntity.isFavourite
+                        ? Theme.of(context).colorScheme.secondary
+                        : Theme.of(context).unselectedWidgetColor,
+                    onPressed: () {
+                      context
+                          .read<FixtureTabBloc>()
+                          .add(FixtureTabEventToggleFavorite(matchEntity: matchEntity));
+                    },
+                  ),
+                  const SizedBox(width: 8),
+                  Flexible(
+                      child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CachedNetworkImage(
+                                placeholder: (context, string) =>
+                                    Image.asset('assets/images/team_placeholder.png'),
+                                errorWidget: (context, string, error) =>
+                                    Image.asset('assets/images/team_placeholder.png'),
+                                imageUrl:
+                                    'https://images.fotmob.com/image_resources/logo/teamlogo/${matchEntity.home?.id}_xsmall.png',
+                                height: 16,
+                                width: 16),
+                            const SizedBox(width: 8),
+                            Flexible(
+                                child: Text(
+                              "${matchEntity.home?.name}",
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              style: const TextStyle(fontSize: 12, color: Colors.white),
+                            ))
+                          ],
                         ),
-                        Flexible(
-                          flex: 1,
-                          child: Text(
-                            "${matchEntity.away?.score}",
-                            style: TextStyle(color: Theme.of(context).colorScheme.secondary),
-                            maxLines: 1,
-                            overflow: TextOverflow.fade,
-                          ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CachedNetworkImage(
+                                placeholder: (context, string) =>
+                                    Image.asset('assets/images/team_placeholder.png'),
+                                errorWidget: (context, string, error) =>
+                                    Image.asset('assets/images/team_placeholder.png'),
+                                imageUrl:
+                                    'https://images.fotmob.com/image_resources/logo/teamlogo/${matchEntity.away?.id}_xsmall.png',
+                                height: 16,
+                                width: 16),
+                            const SizedBox(width: 8),
+                            Flexible(
+                                child: Text(
+                              "${matchEntity.away?.name}",
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              style: const TextStyle(fontSize: 12, color: Colors.white),
+                            ))
+                          ],
                         ),
-                      ],
-                    )),
-                    // SizedBox(width: 8),
-                  ] else if (matchEntity.status?.started == false &&
-                      matchEntity.status?.cancelled == false) ...[
-                    Text(
-                      DateFormat(DateFormat.HOUR24_MINUTE).format(matchEntity.time!.toLocal()),
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ] else if (matchEntity.status?.cancelled == true) ...[
-                    Text(
-                      DateFormat(DateFormat.HOUR24_MINUTE).format(matchEntity.time!.toLocal()),
-                      style: const TextStyle(
-                          color: Colors.white, decoration: TextDecoration.lineThrough),
-                    ),
-                  ]
-                ]),
-          )
-        ],
+                      )
+                    ],
+                  ))
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    if (matchEntity.status?.started == true) ...[
+                      // SizedBox(width: 8),
+                      Text(
+                        "${matchEntity.status?.liveTime?.short ?? matchEntity.status?.reason?.short}",
+                        style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+                      ),
+                      // SizedBox(width: 8),
+                      Flexible(
+                          child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            flex: 1,
+                            child: Text(
+                              "${matchEntity.home?.score}",
+                              style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+                              maxLines: 1,
+                              overflow: TextOverflow.fade,
+                            ),
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: Text(
+                              "${matchEntity.away?.score}",
+                              style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+                              maxLines: 1,
+                              overflow: TextOverflow.fade,
+                            ),
+                          ),
+                        ],
+                      )),
+                      // SizedBox(width: 8),
+                    ] else if (matchEntity.status?.started == false &&
+                        matchEntity.status?.cancelled == false) ...[
+                      Text(
+                        DateFormat(DateFormat.HOUR24_MINUTE).format(matchEntity.time!.toLocal()),
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ] else if (matchEntity.status?.cancelled == true) ...[
+                      Text(
+                        DateFormat(DateFormat.HOUR24_MINUTE).format(matchEntity.time!.toLocal()),
+                        style: const TextStyle(
+                            color: Colors.white, decoration: TextDecoration.lineThrough),
+                      ),
+                    ]
+                  ]),
+            )
+          ],
+        ),
       ),
     );
   }

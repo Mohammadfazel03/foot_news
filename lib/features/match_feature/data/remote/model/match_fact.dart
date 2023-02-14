@@ -34,7 +34,7 @@ class EventsBean with _$EventsBean {
 
   const factory EventsBean({
     @JsonKey(name: 'reactKey') String? reactKey,
-    @JsonKey(name: 'timeStr') int? timeStr,
+    @JsonKey(name: 'timeStr') String? timeStr,
     @JsonKey(name: 'type') String? type,
     @JsonKey(name: 'time') int? time,
     @JsonKey(name: 'overloadTime') int? overloadTime,
@@ -68,9 +68,14 @@ class EventsBean with _$EventsBean {
     if (json['overloadTime'] == null || json['overloadTime'] == 0) {
       json['overloadTimeStr'] = null;
     }
+
+    if (json['timeStr'] != null || json['timeStr'] is int) {
+      json['timeStr'] = json['timeStr'].toString();
+    }
+
     return _$EventsBeanFromJson(json);
   }
-// factory EventsBean.fromJson(Map<String, dynamic> json) => _$EventsBeanFromJson(json);
+  // factory EventsBean.fromJson(Map<String, dynamic> json) => _$EventsBeanFromJson(json);
 }
 
 @freezed
@@ -93,7 +98,14 @@ class PlayerBean with _$PlayerBean {
     @JsonKey(name: 'profileUrl') String? profileUrl,
   }) = _PlayerBean;
 
-  factory PlayerBean.fromJson(Map<String, Object?> json) => _$PlayerBeanFromJson(json);
+  // factory PlayerBean.fromJson(Map<String, Object?> json) => _$PlayerBeanFromJson(json);
+
+  factory PlayerBean.fromJson(Map<String, Object?> json) {
+    if (json['id'] != null && json['id'] is String) {
+      json['id'] = int.parse(json['id'] as String);
+    }
+    return _$PlayerBeanFromJson(json);
+  }
 }
 
 

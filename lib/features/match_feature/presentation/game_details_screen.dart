@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:foot_news/features/match_feature/data/repository/match_details_repository.dart';
+import 'package:foot_news/features/matches_feature/data/entity/match_entity.dart';
 
 class GameDetailsScreen extends StatefulWidget {
-  const GameDetailsScreen({Key? key}) : super(key: key);
+  final MatchEntity matchEntity;
+
+  const GameDetailsScreen({Key? key, required this.matchEntity}) : super(key: key);
 
   @override
   State<GameDetailsScreen> createState() => _GameDetailsScreenState();

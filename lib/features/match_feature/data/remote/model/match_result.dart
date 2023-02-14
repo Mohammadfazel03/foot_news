@@ -33,7 +33,7 @@ class MatchResult with _$MatchResult {
     return _$MatchResultFromJson(json);
   }
 
-// factory MatchResult.fromJson(Map<String, dynamic> json) => _$MatchResultFromJson(json);
+  // factory MatchResult.fromJson(Map<String, dynamic> json) => _$MatchResultFromJson(json);
 
 }
 
@@ -42,7 +42,7 @@ class ContentBean with _$ContentBean {
   const factory ContentBean({
     @JsonKey(name: 'matchFacts') MatchFacts? matchFacts,
     @JsonKey(name: 'stats') StatsBean? stats,
-    @JsonKey(name: 'lineup') LineupBean? lineup,
+    @JsonKey(name: 'lineup') Lineup? lineup,
     @JsonKey(name: 'h2h') H2hBean? h2h,
   }) = _ContentBean;
 
@@ -62,7 +62,7 @@ class ContentBean with _$ContentBean {
     return _$ContentBeanFromJson(json);
   }
 
-// factory ContentBean.fromJson(Map<String, dynamic> json) => _$ContentBeanFromJson(json);
+  // factory ContentBean.fromJson(Map<String, dynamic> json) => _$ContentBeanFromJson(json);
 
 
 }

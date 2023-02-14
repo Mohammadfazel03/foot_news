@@ -5,7 +5,7 @@ class MatchApiService {
 
   MatchApiService({required Dio dio}) : _dio = dio;
 
-  Future<dynamic> getAllMatch(int matchId) async {
+  Future<dynamic> getMatch(int matchId) async {
     final parameter = {
       "matchId": matchId,
     };

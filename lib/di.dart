@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:foot_news/config/dio_config.dart';
 import 'package:foot_news/features/home_feature/presentation/widgets/bottom_nav/bottom_nav_cubit.dart';
+import 'package:foot_news/features/match_feature/data/remote/match_api_service.dart';
+import 'package:foot_news/features/match_feature/data/repository/match_details_repository.dart';
+import 'package:foot_news/features/match_feature/data/repository/match_details_repository_impl.dart';
 import 'package:foot_news/features/matches_feature/data/local/collections/match_collection.dart';
 import 'package:foot_news/features/matches_feature/data/local/collections/match_league_collection.dart';
 import 'package:foot_news/features/matches_feature/data/remote/matches_api_service.dart';
@@ -32,7 +35,10 @@ Future<void> setup() async {
   // register remote data
   getIt.registerSingleton<Dio>(getDioConfiguration());
   getIt.registerSingleton<MatchesApiService>(MatchesApiService(dio: getIt()));
+  getIt.registerSingleton<MatchApiService>(MatchApiService(dio: getIt()));
 
   // register repository
   getIt.registerFactory<MatchRepository>(() => MatchRepositoryImpl(api: getIt(), isar: getIt()));
+  getIt.registerFactory<MatchDetailsRepository>(
+      () => MatchDetailsRepositoryImpl(apiService: getIt()));
 }
