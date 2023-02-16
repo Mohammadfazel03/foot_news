@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:foot_news/features/match_feature/data/local/collections/match_details_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'match_lineup.freezed.dart';
+
 part 'match_lineup.g.dart';
 
 @freezed
@@ -19,38 +21,77 @@ class Lineup with _$Lineup {
   }) = _Lineup;
 
   factory Lineup.fromJson(Map<String, Object?> json) => _$LineupFromJson(json);
+
+  const Lineup._();
+
+  LineupEmbedded get toCollection => LineupEmbedded()
+    ..lineup = lineup?.map((e) => e?.toCollection).toList()
+    ..bench = bench?.toCollection
+    ..coaches = coaches?.toCollection
+    ..hasFantasy = hasFantasy
+    ..naPlayers = naPlayers?.toCollection
+    ..simpleLineup = simpleLineup
+    ..teamRatings = teamRatings?.toCollection
+    ..usingEnetpulseLineup = usingEnetpulseLineup
+    ..usingOptaLineup = usingOptaLineup;
 }
 
 @freezed
 class InjuredPlayer with _$InjuredPlayer {
   const factory InjuredPlayer({
-    @JsonKey(name: 'sides') List<String>? sides,
+    @JsonKey(name: 'sides') List<String?>? sides,
     @JsonKey(name: 'naPlayersArr') List<List<LineupPlayer?>?>? naPlayersArr,
   }) = _InjuredPlayer;
 
   factory InjuredPlayer.fromJson(Map<String, Object?> json) => _$InjuredPlayerFromJson(json);
+
+  const InjuredPlayer._();
+
+  ParentLineupEmbedded get toCollection => ParentLineupEmbedded()
+    ..arr = naPlayersArr?.map((e) => _parseNestedList(e)).toList()
+    ..sides = sides;
+
+  NestedListLineupPlayerEmbedded _parseNestedList(List<LineupPlayer?>? list) =>
+      NestedListLineupPlayerEmbedded()..arr = list?.map((e) => e?.toCollection).toList();
 }
 
 @freezed
 class Coach with _$Coach {
   const factory Coach({
-    @JsonKey(name: 'sides') List<String>? sides,
+    @JsonKey(name: 'sides') List<String?>? sides,
     @JsonKey(name: 'coachesArr') List<List<LineupPlayer?>?>? coachesArr,
   }) = _Coach;
 
   factory Coach.fromJson(Map<String, Object?> json) => _$CoachFromJson(json);
+
+  const Coach._();
+
+  ParentLineupEmbedded get toCollection => ParentLineupEmbedded()
+    ..arr = coachesArr?.map((e) => _parseNestedList(e)).toList()
+    ..sides = sides;
+
+  NestedListLineupPlayerEmbedded _parseNestedList(List<LineupPlayer?>? list) =>
+      NestedListLineupPlayerEmbedded()..arr = list?.map((e) => e?.toCollection).toList();
 }
 
 @freezed
 class Bench with _$Bench {
   const factory Bench({
-    @JsonKey(name: 'sides') List<String>? sides,
+    @JsonKey(name: 'sides') List<String?>? sides,
     @JsonKey(name: 'benchArr') List<List<LineupPlayer?>?>? benchArr,
   }) = _Bench;
 
   factory Bench.fromJson(Map<String, Object?> json) => _$BenchFromJson(json);
-}
 
+  const Bench._();
+
+  ParentLineupEmbedded get toCollection => ParentLineupEmbedded()
+    ..arr = benchArr?.map((e) => _parseNestedList(e)).toList()
+    ..sides = sides;
+
+  NestedListLineupPlayerEmbedded _parseNestedList(List<LineupPlayer?>? list) =>
+      NestedListLineupPlayerEmbedded()..arr = list?.map((e) => e?.toCollection).toList();
+}
 
 @freezed
 class LineupBean with _$LineupBean {
@@ -64,6 +105,19 @@ class LineupBean with _$LineupBean {
   }) = _LineupBean;
 
   factory LineupBean.fromJson(Map<String, Object?> json) => _$LineupBeanFromJson(json);
+
+  const LineupBean._();
+
+  LineupBeanEmbedded get toCollection => LineupBeanEmbedded()
+    ..bench = bench?.map((e) => e?.toCollection).toList()
+    ..lineup = lineup
+    ..nonAvailablePlayers = nonAvailablePlayers?.map((e) => _parseNestedList(e)).toList()
+    ..players = players?.map((e) => _parseNestedList(e)).toList()
+    ..teamId = teamId
+    ..teamName = teamName;
+
+  NestedListLineupPlayerEmbedded _parseNestedList(List<LineupPlayer?>? list) =>
+      NestedListLineupPlayerEmbedded()..arr = list?.map((e) => e?.toCollection).toList();
 }
 
 @freezed
@@ -82,7 +136,7 @@ class LineupPlayer with _$LineupPlayer {
     @JsonKey(name: 'positionRow') int? positionRow,
     @JsonKey(name: 'role') String? role,
     @JsonKey(name: 'positionStringShort') String? positionStringShort,
-    @JsonKey(name: 'events') Object? events,
+    @JsonKey(name: 'events') LineupEvent? events,
     @JsonKey(name: 'rating') PlayerRating? rating,
     @JsonKey(name: 'minutesPlayed') int? minutesPlayed,
     @JsonKey(name: 'naInfo') InjuredInfo? injuredInfo,
@@ -97,21 +151,49 @@ class LineupPlayer with _$LineupPlayer {
 
   // factory LineupPlayer.fromJson(Map<String, Object?> json) => _$LineupPlayerFromJson(json);
 
+  const LineupPlayer._();
+
+  LineupPlayerEmbedded get toCollection => LineupPlayerEmbedded()
+    ..id = id
+    ..name = name?.toCollection
+    ..imageUrl = imageUrl
+    ..events = events?.toCollection
+    ..injuredInfo = injuredInfo?.toCollection
+    ..isCaptain = isCaptain
+    ..isHomeTeam = isHomeTeam
+    ..minutesPlayed = minutesPlayed
+    ..positionRow = positionRow
+    ..positionStringShort = positionStringShort
+    ..rating = rating?.toCollection
+    ..role = role
+    ..shirt = shirt
+    ..timeSubbedOff = timeSubbedOff
+    ..timeSubbedOn = timeSubbedOn
+    ..usingOptaId = usingOptaId
+    ..usualPosition = usualPosition;
 }
 
 @freezed
 class InjuredInfo with _$InjuredInfo {
   @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory InjuredInfo({
-  @JsonKey(name: 'id') int? id,
-  @JsonKey(name: 'name') String? name,
-  @JsonKey(name: 'naReason') String? reason,
-  @JsonKey(name: 'expectedReturn') String? expectedReturn,
-  @JsonKey(name: 'injury') bool? injury,
+    @JsonKey(name: 'id') int? id,
+    @JsonKey(name: 'name') String? name,
+    @JsonKey(name: 'naReason') String? reason,
+    @JsonKey(name: 'expectedReturn') String? expectedReturn,
+    @JsonKey(name: 'injury') bool? injury,
   }) = _InjuredInfo;
 
-  factory InjuredInfo.fromJson(Map<String, dynamic> json) =>
-      _$InjuredInfoFromJson(json);
+  factory InjuredInfo.fromJson(Map<String, dynamic> json) => _$InjuredInfoFromJson(json);
+
+  const InjuredInfo._();
+
+  InjuredInfoEmbedded get toCollection => InjuredInfoEmbedded()
+    ..name = name
+    ..id = id
+    ..reason = reason
+    ..expectedReturn = expectedReturn
+    ..injury = injury;
 }
 
 @freezed
@@ -123,6 +205,13 @@ class PlayerRating with _$PlayerRating {
   }) = _PlayerRating;
 
   factory PlayerRating.fromJson(Map<String, Object?> json) => _$PlayerRatingFromJson(json);
+
+  const PlayerRating._();
+
+  PlayerRatingEmbedded get toCollection => PlayerRatingEmbedded()
+    ..num = this.num
+    ..bgcolor = bgcolor
+    ..isTop = isTop?.toCollection;
 }
 
 @freezed
@@ -133,6 +222,12 @@ class IsTopPlayer with _$IsTopPlayer {
   }) = _IsTopPlayer;
 
   factory IsTopPlayer.fromJson(Map<String, Object?> json) => _$IsTopPlayerFromJson(json);
+
+  const IsTopPlayer._();
+
+  IsTopPlayerEmbedded get toCollection => IsTopPlayerEmbedded()
+    ..isMatchFinished = isMatchFinished
+    ..isTopRating = isTopRating;
 }
 
 @freezed
@@ -143,8 +238,13 @@ class PlayerNameBean with _$PlayerNameBean {
   }) = _PlayerNameBean;
 
   factory PlayerNameBean.fromJson(Map<String, Object?> json) => _$PlayerNameBeanFromJson(json);
-}
 
+  const PlayerNameBean._();
+
+  PlayerNameEmbedded get toCollection => PlayerNameEmbedded()
+    ..lastName = lastName
+    ..firstName = firstName;
+}
 
 @freezed
 class TeamRatings with _$TeamRatings {
@@ -154,6 +254,12 @@ class TeamRatings with _$TeamRatings {
   }) = _TeamRatings;
 
   factory TeamRatings.fromJson(Map<String, Object?> json) => _$TeamRatingsFromJson(json);
+
+  const TeamRatings._();
+
+  TeamRatingsEmbedded get toCollection => TeamRatingsEmbedded()
+    ..home = home?.toCollection
+    ..away = away?.toCollection;
 }
 
 @freezed
@@ -164,4 +270,57 @@ class TeamRatingsBean with _$TeamRatingsBean {
   }) = _TeamRatingsBean;
 
   factory TeamRatingsBean.fromJson(Map<String, Object?> json) => _$TeamRatingsBeanFromJson(json);
+
+  const TeamRatingsBean._();
+
+  TeamRatingsBeanEmbedded get toCollection => TeamRatingsBeanEmbedded()
+    ..bgcolor = bgcolor
+    ..num = this.num;
+}
+
+@freezed
+class LineupEvent with _$LineupEvent {
+  const factory LineupEvent({
+    @JsonKey(name: 'mp') int? missedPenalty,
+    @JsonKey(name: 'savedPenalties') int? savedPenalties,
+    @JsonKey(name: 'yc') int? yellowCard,
+    @JsonKey(name: 'rc') int? redCard,
+    @JsonKey(name: 'as') int? assists,
+    @JsonKey(name: 'g') int? goal,
+    @JsonKey(name: 'og') int? ownGoal,
+    @JsonKey(name: 'ycrc') int? yellowRedCard,
+    @JsonKey(name: 'sub') LineupSub? sub,
+  }) = _LineupEvent;
+
+  factory LineupEvent.fromJson(Map<String, dynamic> json) => _$LineupEventFromJson(json);
+
+  const LineupEvent._();
+
+  LineupEventEmbedded get toCollection => LineupEventEmbedded()
+    ..ownGoal = ownGoal
+    ..assists = assists
+    ..goal = goal
+    ..missedPenalty = missedPenalty
+    ..redCard = redCard
+    ..savedPenalties = savedPenalties
+    ..sub = sub?.toCollection
+    ..yellowCard = yellowCard
+    ..yellowRedCard = yellowRedCard;
+}
+
+@freezed
+class LineupSub with _$LineupSub {
+  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
+  const factory LineupSub({
+    @JsonKey(name: 'subbedIn') int? subbedIn,
+    @JsonKey(name: 'subbedOut') int? subbedOut,
+  }) = _LineupSub;
+
+  factory LineupSub.fromJson(Map<String, dynamic> json) => _$LineupSubFromJson(json);
+
+  const LineupSub._();
+
+  LineupSubEmbedded get toCollection => LineupSubEmbedded()
+    ..subbedIn = subbedIn
+    ..subbedOut = subbedOut;
 }

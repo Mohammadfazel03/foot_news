@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:foot_news/features/match_feature/data/local/collections/match_details_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'match_general.freezed.dart';
@@ -25,6 +26,25 @@ class MatchGeneral with _$MatchGeneral {
   }) = _MatchGeneral;
 
   factory MatchGeneral.fromJson(Map<String, Object?> json) => _$MatchGeneralFromJson(json);
+
+  const MatchGeneral._();
+
+  MatchGeneralEmbedded get toCollection => MatchGeneralEmbedded()
+      ..matchId= matchId
+      ..leagueName = leagueName
+      ..started = started
+      ..finished = finished
+      ..leagueId = leagueId
+      ..countryCode = countryCode
+      ..leagueRoundName = leagueRoundName
+      ..matchName = matchName
+      ..matchRound = matchRound
+      ..matchTimeUTC = matchTimeUTC
+      ..matchTimeUTCDate = matchTimeUTCDate
+      ..parentLeagueId = parentLeagueId
+      ..parentLeagueName = parentLeagueName
+      ..parentLeagueSeason = parentLeagueSeason
+      ..teamColors = teamColors?.toCollection;
 }
 
 @freezed
@@ -35,5 +55,11 @@ class TeamColorsBean with _$TeamColorsBean {
   }) = _TeamColorsBean;
 
   factory TeamColorsBean.fromJson(Map<String, Object?> json) => _$TeamColorsBeanFromJson(json);
+
+  const TeamColorsBean._();
+
+  TeamColorsBeanEmbedded get toCollection => TeamColorsBeanEmbedded()
+      ..home = home
+      ..away = away;
 }
 

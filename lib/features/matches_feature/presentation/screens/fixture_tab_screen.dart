@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foot_news/features/match_feature/presentation/game_details_screen.dart';
+import 'package:foot_news/features/match_feature/presentation/screens/game_details_screen.dart';
 import 'package:foot_news/features/matches_feature/data/entity/match_entity.dart';
 import 'package:foot_news/features/matches_feature/data/entity/match_league_entity.dart';
 import 'package:foot_news/features/matches_feature/presentation/bloc/fixture_tab_bloc.dart';

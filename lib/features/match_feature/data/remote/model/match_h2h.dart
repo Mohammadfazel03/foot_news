@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:foot_news/features/match_feature/data/local/collections/match_details_collection.dart';
+import 'package:foot_news/features/match_feature/data/remote/model/match_header.dart';
 import 'package:foot_news/features/matches_feature/data/remote/model/against_team_match.dart';
 import 'package:foot_news/features/matches_feature/data/remote/model/match_league.dart';
 import 'package:foot_news/features/matches_feature/data/remote/model/status_match.dart';
@@ -11,18 +13,24 @@ part 'match_h2h.g.dart';
 @freezed
 class H2hBean with _$H2hBean {
   const factory H2hBean({
-    @JsonKey(name: 'summary') List<int>? summary,
-    @JsonKey(name: 'matches') List<MatchesBean>? matches,
+    @JsonKey(name: 'summary') List<int?>? summary,
+    @JsonKey(name: 'matches') List<MatchesBean?>? matches,
   }) = _H2hBean;
 
   factory H2hBean.fromJson(Map<String, Object?> json) => _$H2hBeanFromJson(json);
+
+  const H2hBean._();
+
+  H2hBeanEmbedded get toCollection => H2hBeanEmbedded()
+      ..summary = summary
+      ..matches = matches?.map((e) => e?.toCollection).toList();
 }
 
 @freezed
 class MatchesBean with _$MatchesBean {
   const factory MatchesBean({
     @JsonKey(name: 'matchUrl') String? matchUrl,
-    @JsonKey(name: 'league') MatchLeague? league,
+    @JsonKey(name: 'league') TeamsBean? league,
     @JsonKey(name: 'home') AgainstTeamMatch? home,
     @JsonKey(name: 'status') StatusMatch? status,
     @JsonKey(name: 'finished') bool? finished,
@@ -58,4 +66,14 @@ class MatchesBean with _$MatchesBean {
   }
   //
   // factory MatchesBean.fromJson(Map<String, dynamic> json) => _$MatchesBeanFromJson(json);
+
+  const MatchesBean._();
+
+  MatchesBeanEmbedded get toCollection => MatchesBeanEmbedded()
+      ..away = away?.toCollection
+      ..home = home?.toCollection
+      ..finished = finished
+      ..league = league?.toCollection
+      ..status = status?.toCollection
+      ..matchUrl = matchUrl;
 }

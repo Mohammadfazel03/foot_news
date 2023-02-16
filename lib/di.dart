@@ -40,5 +40,5 @@ Future<void> setup() async {
   // register repository
   getIt.registerFactory<MatchRepository>(() => MatchRepositoryImpl(api: getIt(), isar: getIt()));
   getIt.registerFactory<MatchDetailsRepository>(
-      () => MatchDetailsRepositoryImpl(apiService: getIt()));
+      () => MatchDetailsRepositoryImpl(apiService: getIt(), isar: getIt()));
 }

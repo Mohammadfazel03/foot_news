@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:foot_news/features/match_feature/data/local/collections/match_details_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'match_fact.freezed.dart';
+
 part 'match_fact.g.dart';
 
 @freezed
@@ -10,26 +12,41 @@ class MatchFacts with _$MatchFacts {
     @JsonKey(name: 'matchId') int? matchId,
     @JsonKey(name: 'events') Events? events,
     @JsonKey(name: 'infoBox') InfoBoxBean? infoBox,
-    @JsonKey(name: 'teamForm') List<List<TeamFormBean>>? teamForm,
+    @JsonKey(name: 'teamForm') List<List<TeamFormBean?>?>? teamForm,
   }) = _MatchFacts;
 
   factory MatchFacts.fromJson(Map<String, Object?> json) => _$MatchFactsFromJson(json);
-}
 
+  const MatchFacts._();
+
+  MatchFactsEmbedded get toCollection => MatchFactsEmbedded()
+    ..events = events?.toCollection
+    ..matchId = matchId
+    ..infoBox = infoBox?.toCollection
+    ..teamForm = teamForm?.map((e) => _parseNestedList(e)).toList();
+
+  NestedListTeamFormEmbedded _parseNestedList(List<TeamFormBean?>? list) =>
+      NestedListTeamFormEmbedded()..teamForm = list?.map((e) => e?.toCollection).toList();
+}
 
 @freezed
 class Events with _$Events {
   const factory Events({
     @JsonKey(name: 'ongoing') bool? ongoing,
-    @JsonKey(name: 'events') List<EventsBean>? events,
+    @JsonKey(name: 'events') List<EventsBean?>? events,
   }) = _Events;
 
   factory Events.fromJson(Map<String, Object?> json) => _$EventsFromJson(json);
+
+  const Events._();
+
+  EventsEmbedded get toCollection => EventsEmbedded()
+    ..ongoing = ongoing
+    ..events = events?.map((e) => e?.toCollection).toList();
 }
 
 @freezed
 class EventsBean with _$EventsBean {
-
   const EventsBean._();
 
   const factory EventsBean({
@@ -59,7 +76,7 @@ class EventsBean with _$EventsBean {
     @JsonKey(name: 'halfStrShort') String? halfStrShort,
     @JsonKey(name: 'missedPenaltyStr') String? missedPenaltyStr,
     @JsonKey(name: 'assistPlayerId') int? assistPlayerId,
-    @JsonKey(name: 'swap') List<PlayerBean>? swap,
+    @JsonKey(name: 'swap') List<PlayerBean?>? swap,
     @JsonKey(name: 'player') PlayerBean? player,
     @JsonKey(name: 'VAR') VideoAssistantReferee? videoAssistantReferee,
   }) = _EventsBean;
@@ -75,12 +92,43 @@ class EventsBean with _$EventsBean {
 
     return _$EventsBeanFromJson(json);
   }
+
   // factory EventsBean.fromJson(Map<String, dynamic> json) => _$EventsBeanFromJson(json);
+
+  EventsBeanEmbedded get toCollection => EventsBeanEmbedded()
+    ..type = type
+    ..time = time
+    ..assistPlayerId = assistPlayerId
+    ..assistProfileUrl = assistProfileUrl
+    ..assistStr = assistStr
+    ..card = card
+    ..eventId = eventId
+    ..firstName = firstName
+    ..goalDescription = goalDescription
+    ..halfStrShort = halfStrShort
+    ..injuredPlayerOut = injuredPlayerOut
+    ..isHome = isHome
+    ..isPenaltyShootoutEvent = isPenaltyShootoutEvent
+    ..lastName = lastName
+    ..minutesAddedStr = minutesAddedStr
+    ..missedPenaltyStr = missedPenaltyStr
+    ..nameStr = nameStr
+    ..overloadTime = overloadTime
+    ..overloadTimeStr = overloadTimeStr
+    ..ownGoal = ownGoal
+    ..penShootoutScore = penShootoutScore
+    ..player = player?.toCollection
+    ..playerId = playerId
+    ..profileUrl = profileUrl
+    ..reactKey = reactKey
+    ..suffix = suffix
+    ..swap = swap?.map((e) => e?.toCollection).toList()
+    ..timeStr = timeStr
+    ..videoAssistantReferee = videoAssistantReferee?.toCollection;
 }
 
 @freezed
 class VideoAssistantReferee with _$VideoAssistantReferee {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory VideoAssistantReferee({
     @JsonKey(name: 'pendingDecision') bool? pendingDecision,
     @JsonKey(name: 'decision') String? decision,
@@ -88,6 +136,12 @@ class VideoAssistantReferee with _$VideoAssistantReferee {
 
   factory VideoAssistantReferee.fromJson(Map<String, dynamic> json) =>
       _$VideoAssistantRefereeFromJson(json);
+
+  const VideoAssistantReferee._();
+
+  VideoAssistantRefereeEmbedded get toCollection => VideoAssistantRefereeEmbedded()
+    ..decision = decision
+    ..pendingDecision = pendingDecision;
 }
 
 @freezed
@@ -95,7 +149,6 @@ class PlayerBean with _$PlayerBean {
   const factory PlayerBean({
     @JsonKey(name: 'id') int? id,
     @JsonKey(name: 'name') String? name,
-    @JsonKey(name: 'profileUrl') String? profileUrl,
   }) = _PlayerBean;
 
   // factory PlayerBean.fromJson(Map<String, Object?> json) => _$PlayerBeanFromJson(json);
@@ -106,19 +159,32 @@ class PlayerBean with _$PlayerBean {
     }
     return _$PlayerBeanFromJson(json);
   }
-}
 
+  const PlayerBean._();
+
+  PlayerBeanEmbedded get toCollection => PlayerBeanEmbedded()
+    ..name = name
+    ..id = id;
+}
 
 @freezed
 class InfoBoxBean with _$InfoBoxBean {
   const factory InfoBoxBean({
-    @JsonKey(name: 'Tournament') TournamentBean? Tournament,
-    @JsonKey(name: 'Stadium') StadiumBean? Stadium,
-    @JsonKey(name: 'Referee') RefereeBean? Referee,
-    @JsonKey(name: 'Attendance') int? Attendance,
+    @JsonKey(name: 'Tournament') TournamentBean? tournament,
+    @JsonKey(name: 'Stadium') StadiumBean? stadium,
+    @JsonKey(name: 'Referee') RefereeBean? referee,
+    @JsonKey(name: 'Attendance') int? attendance,
   }) = _InfoBoxBean;
 
   factory InfoBoxBean.fromJson(Map<String, Object?> json) => _$InfoBoxBeanFromJson(json);
+
+  const InfoBoxBean._();
+
+  InfoBoxEmbedded get toCollection => InfoBoxEmbedded()
+    ..attendance = attendance
+    ..referee = referee?.toCollection
+    ..stadium = stadium?.toCollection
+    ..tournament = tournament?.toCollection;
 }
 
 @freezed
@@ -130,6 +196,13 @@ class RefereeBean with _$RefereeBean {
   }) = _RefereeBean;
 
   factory RefereeBean.fromJson(Map<String, Object?> json) => _$RefereeBeanFromJson(json);
+
+  const RefereeBean._();
+
+  RefereeEmbedded get toCollection => RefereeEmbedded()
+    ..country = country
+    ..text = text
+    ..imgUrl = imgUrl;
 }
 
 @freezed
@@ -143,6 +216,15 @@ class StadiumBean with _$StadiumBean {
   }) = _StadiumBean;
 
   factory StadiumBean.fromJson(Map<String, Object?> json) => _$StadiumBeanFromJson(json);
+
+  const StadiumBean._();
+
+  StadiumEmbedded get toCollection => StadiumEmbedded()
+    ..name = name
+    ..long = long
+    ..city = city
+    ..lat = lat
+    ..country = country;
 }
 
 @freezed
@@ -155,8 +237,15 @@ class TournamentBean with _$TournamentBean {
   }) = _TournamentBean;
 
   factory TournamentBean.fromJson(Map<String, Object?> json) => _$TournamentBeanFromJson(json);
-}
 
+  const TournamentBean._();
+
+  TournamentEmbedded get toCollection => TournamentEmbedded()
+    ..id = id
+    ..leagueName = leagueName
+    ..link = link
+    ..round = round;
+}
 
 @freezed
 class TeamFormBean with _$TeamFormBean {
@@ -167,4 +256,11 @@ class TeamFormBean with _$TeamFormBean {
   }) = _TeamFormBean;
 
   factory TeamFormBean.fromJson(Map<String, Object?> json) => _$TeamFormBeanFromJson(json);
+
+  const TeamFormBean._();
+
+  TeamFormEmbedded get toCollection => TeamFormEmbedded()
+    ..score = score
+    ..result = result
+    ..resultString = resultString;
 }

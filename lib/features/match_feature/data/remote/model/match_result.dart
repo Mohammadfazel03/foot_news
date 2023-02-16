@@ -1,3 +1,4 @@
+import 'package:foot_news/features/match_feature/data/local/collections/match_details_collection.dart';
 import 'package:foot_news/features/match_feature/data/remote/model/match_general.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -15,7 +16,7 @@ class MatchResult with _$MatchResult {
   const factory MatchResult({
     @JsonKey(name: 'general') MatchGeneral? general,
     @JsonKey(name: 'header') HeaderBean? header,
-    @JsonKey(name: 'nav') List<String>? nav,
+    @JsonKey(name: 'nav') List<String?>? nav,
     @JsonKey(name: 'ongoing') bool? ongoing,
     @JsonKey(name: 'content') ContentBean? content,
   }) = _MatchResult;
@@ -35,13 +36,22 @@ class MatchResult with _$MatchResult {
 
   // factory MatchResult.fromJson(Map<String, dynamic> json) => _$MatchResultFromJson(json);
 
+  const MatchResult._();
+
+  MatchDetailsCollection get toCollection => MatchDetailsCollection()
+      ..id = int.parse(general!.matchId!)
+      ..nav = nav
+      ..general = general?.toCollection
+      ..ongoing = ongoing
+      ..content = content?.toCollection
+      ..header = header?.toCollection;
 }
 
 @freezed
 class ContentBean with _$ContentBean {
   const factory ContentBean({
     @JsonKey(name: 'matchFacts') MatchFacts? matchFacts,
-    @JsonKey(name: 'stats') StatsBean? stats,
+    @JsonKey(name: 'stats') Stats? stats,
     @JsonKey(name: 'lineup') Lineup? lineup,
     @JsonKey(name: 'h2h') H2hBean? h2h,
   }) = _ContentBean;
@@ -64,5 +74,11 @@ class ContentBean with _$ContentBean {
 
   // factory ContentBean.fromJson(Map<String, dynamic> json) => _$ContentBeanFromJson(json);
 
+  const ContentBean._();
 
+  MatchContentEmbedded get toCollection => MatchContentEmbedded()
+      ..stats = stats?.toCollection
+      ..lineup = lineup?.toCollection
+      ..h2h = h2h?.toCollection
+      ..matchFacts = matchFacts?.toCollection;
 }

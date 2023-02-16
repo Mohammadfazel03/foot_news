@@ -46,7 +46,7 @@ class MatchRepositoryImpl extends MatchRepository {
         .optional(byTime, (q) => q.sortByTime())
         .build();
 
-    return query.watch(fireImmediately: true).map((event) {
+    return query.watch(fireImmediately: true).asyncMap((event) {
       var matches = event.map((e) => MatchEntity.fromCollection(e)).toList(growable: false);
       List<MatchLeagueEntity> leagues = [];
       if (byTime && matches.isNotEmpty) {

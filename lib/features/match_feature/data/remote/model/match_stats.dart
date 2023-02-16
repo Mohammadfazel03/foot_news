@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:foot_news/features/match_feature/data/local/collections/match_details_collection.dart';
 import 'package:foot_news/features/match_feature/data/remote/model/match_general.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -8,11 +9,17 @@ part 'match_stats.g.dart';
 @freezed
 class Stats with _$Stats {
   const factory Stats({
-    @JsonKey(name: 'stats') List<StatsBean>? stats,
+    @JsonKey(name: 'stats') List<StatsBean?>? stats,
     @JsonKey(name: 'teamColors') TeamColorsBean? teamColors,
   }) = _Stats;
 
   factory Stats.fromJson(Map<String, Object?> json) => _$StatsFromJson(json);
+
+  const Stats._();
+
+  StatsEmbedded get toCollection => StatsEmbedded()
+      ..teamColors = teamColors?.toCollection
+      ..stats = stats?.map((e) => e?.toCollection).toList();
 }
 
 @freezed
@@ -25,4 +32,32 @@ class StatsBean with _$StatsBean {
   }) = _StatsBean;
 
   factory StatsBean.fromJson(Map<String, Object?> json) => _$StatsBeanFromJson(json);
+
+  const StatsBean._();
+
+  StatsBeanEmbedded get toCollection {
+    if (stats != null) {
+      if (stats!.isNotEmpty) {
+        if (stats!.first is! StatsBean) {
+          var temp = stats!.map((e) => e.toString()).toList();
+          return StatsBeanEmbedded()
+            ..type = type
+            ..highlighted = highlighted
+            ..title = title
+            ..statsString = temp;
+        } else {
+          List<StatsBeanEmbedded> temp = stats!.map((e) => (e as StatsBean).toCollection).toList();
+          return StatsBeanEmbedded()
+            ..type = type
+            ..highlighted = highlighted
+            ..title = title
+            ..stats = temp;
+        }
+      }
+    }
+    return StatsBeanEmbedded()
+      ..type = type
+      ..highlighted = highlighted
+      ..title = title;
+  }
 }
