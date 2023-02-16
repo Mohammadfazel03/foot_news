@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:foot_news/config/dio_config.dart';
 import 'package:foot_news/features/home_feature/presentation/widgets/bottom_nav/bottom_nav_cubit.dart';
+import 'package:foot_news/features/match_feature/data/local/collections/match_details_collection.dart';
 import 'package:foot_news/features/match_feature/data/remote/match_api_service.dart';
 import 'package:foot_news/features/match_feature/data/repository/match_details_repository.dart';
 import 'package:foot_news/features/match_feature/data/repository/match_details_repository_impl.dart';
@@ -30,7 +31,7 @@ Future<void> setup() async {
 
   // register local data
   getIt.registerSingleton<Isar>(
-      await Isar.open([MatchCollectionSchema, MatchLeagueCollectionSchema]));
+      await Isar.open([MatchCollectionSchema, MatchLeagueCollectionSchema, MatchDetailsCollectionSchema]));
 
   // register remote data
   getIt.registerSingleton<Dio>(getDioConfiguration());

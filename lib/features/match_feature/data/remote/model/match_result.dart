@@ -39,7 +39,7 @@ class MatchResult with _$MatchResult {
   const MatchResult._();
 
   MatchDetailsCollection get toCollection => MatchDetailsCollection()
-      ..id = int.parse(general!.matchId!)
+      ..matchId = int.parse(general!.matchId!)
       ..nav = nav
       ..general = general?.toCollection
       ..ongoing = ongoing
