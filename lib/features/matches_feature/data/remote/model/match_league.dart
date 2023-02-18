@@ -4,7 +4,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'match.dart';
 
 part 'match_league.freezed.dart';
-
 part 'match_league.g.dart';
 
 @freezed

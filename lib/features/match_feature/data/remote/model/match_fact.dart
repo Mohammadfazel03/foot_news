@@ -3,7 +3,6 @@ import 'package:foot_news/features/match_feature/data/local/collections/match_de
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'match_fact.freezed.dart';
-
 part 'match_fact.g.dart';
 
 @freezed

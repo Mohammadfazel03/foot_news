@@ -2,7 +2,6 @@ import 'package:foot_news/features/matches_feature/data/local/collections/match_
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'status_match.freezed.dart';
-
 part 'status_match.g.dart';
 
 @freezed

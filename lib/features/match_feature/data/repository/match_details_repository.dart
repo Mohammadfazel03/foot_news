@@ -7,5 +7,5 @@ abstract class MatchDetailsRepository {
 
   Future<int> insertMatch(MatchResult match);
 
-  Stream<MatchDetailsCollection> getStreamMatch(int matchId);
+  Stream<MatchDetailsCollection?> getStreamMatch(int matchId);
 }

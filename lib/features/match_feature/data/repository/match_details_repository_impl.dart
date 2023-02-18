@@ -31,11 +31,11 @@ class MatchDetailsRepositoryImpl extends MatchDetailsRepository {
   }
 
   @override
-  Stream<MatchDetailsCollection> getStreamMatch(int matchId) => _isar.matchDetailsCollections
+  Stream<MatchDetailsCollection?> getStreamMatch(int matchId) => _isar.matchDetailsCollections
       .where()
       .matchIdEqualTo(matchId)
       .watch(fireImmediately: true)
-      .asyncMap((event) => event.first);
+      .asyncMap((event) => (event?.isEmpty ?? true) ? null : event.first);
 
   @override
   Future<int> insertMatch(MatchResult match) =>

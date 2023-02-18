@@ -18,10 +18,9 @@ class HeaderBean with _$HeaderBean {
   const HeaderBean._();
 
   MatchHeaderEmbedded get toCollection => MatchHeaderEmbedded()
-      ..status = status?.toCollection
-      ..teams = teams?.map((e) => e?.toCollection).toList();
+    ..status = status?.toCollection
+    ..teams = teams?.map((e) => e?.toCollection).toList();
 }
-
 
 @freezed
 class TeamsBean with _$TeamsBean {
@@ -45,9 +44,9 @@ class TeamsBean with _$TeamsBean {
   const TeamsBean._();
 
   TeamsBeanEmbedded get toCollection => TeamsBeanEmbedded()
-      ..id = id
-      ..name = name
-      ..score = score
-      ..imageUrl = imageUrl
-      ..pageUrl = pageUrl;
+    ..id = id
+    ..name = name
+    ..score = score
+    ..imageUrl = imageUrl
+    ..pageUrl = pageUrl;
 }

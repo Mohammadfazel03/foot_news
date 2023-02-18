@@ -39,12 +39,12 @@ class MatchResult with _$MatchResult {
   const MatchResult._();
 
   MatchDetailsCollection get toCollection => MatchDetailsCollection()
-      ..matchId = int.parse(general!.matchId!)
-      ..nav = nav
-      ..general = general?.toCollection
-      ..ongoing = ongoing
-      ..content = content?.toCollection
-      ..header = header?.toCollection;
+    ..matchId = int.parse(general!.matchId!)
+    ..nav = nav
+    ..general = general?.toCollection
+    ..ongoing = ongoing
+    ..content = content?.toCollection
+    ..header = header?.toCollection;
 }
 
 @freezed
@@ -77,8 +77,8 @@ class ContentBean with _$ContentBean {
   const ContentBean._();
 
   MatchContentEmbedded get toCollection => MatchContentEmbedded()
-      ..stats = stats?.toCollection
-      ..lineup = lineup?.toCollection
-      ..h2h = h2h?.toCollection
-      ..matchFacts = matchFacts?.toCollection;
+    ..stats = stats?.toCollection
+    ..lineup = lineup?.toCollection
+    ..h2h = h2h?.toCollection
+    ..matchFacts = matchFacts?.toCollection;
 }

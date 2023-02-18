@@ -4,7 +4,6 @@ import 'package:foot_news/features/matches_feature/data/remote/model/status_matc
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'match.freezed.dart';
-
 part 'match.g.dart';
 
 @freezed

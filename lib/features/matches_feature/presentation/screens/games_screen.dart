@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foot_news/di.dart';
 import 'package:foot_news/features/matches_feature/presentation/bloc/fixture_tab_bloc.dart';
 import 'package:foot_news/features/matches_feature/presentation/screens/fixture_tab_screen.dart';
-import 'package:foot_news/features/matches_feature/presentation/widget/tabbar/tab_bloc.dart' as tab_bloc;
+import 'package:foot_news/features/matches_feature/presentation/widget/tabbar/tab_bloc.dart'
+    as tab_bloc;
 import 'package:foot_news/features/matches_feature/presentation/widget/tabbar/tab_indicator.dart';
 import 'package:intl/intl.dart';
 

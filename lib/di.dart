@@ -5,6 +5,8 @@ import 'package:foot_news/features/match_feature/data/local/collections/match_de
 import 'package:foot_news/features/match_feature/data/remote/match_api_service.dart';
 import 'package:foot_news/features/match_feature/data/repository/match_details_repository.dart';
 import 'package:foot_news/features/match_feature/data/repository/match_details_repository_impl.dart';
+import 'package:foot_news/features/match_feature/presentation/bloc/game_details_bloc.dart';
+import 'package:foot_news/features/match_feature/presentation/widget/timer/timer_cubit.dart';
 import 'package:foot_news/features/matches_feature/data/local/collections/match_collection.dart';
 import 'package:foot_news/features/matches_feature/data/local/collections/match_league_collection.dart';
 import 'package:foot_news/features/matches_feature/data/remote/matches_api_service.dart';
@@ -28,10 +30,12 @@ Future<void> setup() async {
       (dateTime, _) => FixtureTabBloc(matchRepository: getIt(), dateTime: dateTime));
   getIt.registerLazySingleton<BottomNavCubit>(() => BottomNavCubit());
   getIt.registerLazySingleton<FilterChipCubit>(() => FilterChipCubit());
+  getIt.registerFactory<GameDetailsBloc>(() => GameDetailsBloc(repository: getIt()));
+  getIt.registerFactory<TimerCubit>(() => TimerCubit());
 
   // register local data
-  getIt.registerSingleton<Isar>(
-      await Isar.open([MatchCollectionSchema, MatchLeagueCollectionSchema, MatchDetailsCollectionSchema]));
+  getIt.registerSingleton<Isar>(await Isar.open(
+      [MatchCollectionSchema, MatchLeagueCollectionSchema, MatchDetailsCollectionSchema]));
 
   // register remote data
   getIt.registerSingleton<Dio>(getDioConfiguration());

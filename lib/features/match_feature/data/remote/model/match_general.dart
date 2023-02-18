@@ -30,21 +30,21 @@ class MatchGeneral with _$MatchGeneral {
   const MatchGeneral._();
 
   MatchGeneralEmbedded get toCollection => MatchGeneralEmbedded()
-      ..matchId= matchId
-      ..leagueName = leagueName
-      ..started = started
-      ..finished = finished
-      ..leagueId = leagueId
-      ..countryCode = countryCode
-      ..leagueRoundName = leagueRoundName
-      ..matchName = matchName
-      ..matchRound = matchRound
-      ..matchTimeUTC = matchTimeUTC
-      ..matchTimeUTCDate = matchTimeUTCDate
-      ..parentLeagueId = parentLeagueId
-      ..parentLeagueName = parentLeagueName
-      ..parentLeagueSeason = parentLeagueSeason
-      ..teamColors = teamColors?.toCollection;
+    ..matchId = matchId
+    ..leagueName = leagueName
+    ..started = started
+    ..finished = finished
+    ..leagueId = leagueId
+    ..countryCode = countryCode
+    ..leagueRoundName = leagueRoundName
+    ..matchName = matchName
+    ..matchRound = matchRound
+    ..matchTimeUTC = matchTimeUTC
+    ..matchTimeUTCDate = matchTimeUTCDate
+    ..parentLeagueId = parentLeagueId
+    ..parentLeagueName = parentLeagueName
+    ..parentLeagueSeason = parentLeagueSeason
+    ..teamColors = teamColors?.toCollection;
 }
 
 @freezed
@@ -59,7 +59,6 @@ class TeamColorsBean with _$TeamColorsBean {
   const TeamColorsBean._();
 
   TeamColorsBeanEmbedded get toCollection => TeamColorsBeanEmbedded()
-      ..home = home
-      ..away = away;
+    ..home = home
+    ..away = away;
 }
-

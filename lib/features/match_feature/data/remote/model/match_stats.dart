@@ -18,8 +18,8 @@ class Stats with _$Stats {
   const Stats._();
 
   StatsEmbedded get toCollection => StatsEmbedded()
-      ..teamColors = teamColors?.toCollection
-      ..stats = stats?.map((e) => e?.toCollection).toList();
+    ..teamColors = teamColors?.toCollection
+    ..stats = stats?.map((e) => e?.toCollection).toList();
 }
 
 @freezed

@@ -7,14 +7,11 @@ import 'package:foot_news/features/matches_feature/data/entity/match_entity.dart
 import 'package:foot_news/features/matches_feature/data/entity/match_league_entity.dart';
 import 'package:foot_news/features/matches_feature/data/remote/model/match_response.dart';
 import 'package:foot_news/features/matches_feature/data/repository/match_repository.dart';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 
 part 'fixture_tab_bloc.freezed.dart';
-
 part 'fixture_tab_event.dart';
-
 part 'fixture_tab_state.dart';
 
 class FixtureTabBloc extends Bloc<FixtureTabEvent, FixtureTabState> {

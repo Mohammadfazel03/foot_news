@@ -48,8 +48,9 @@ class _FilterChipState extends State<FilterChip> {
       onTap: onTap,
       child: DecoratedBox(
         decoration: BoxDecoration(
-            color:
-                isSelected ? Theme.of(context).colorScheme.secondary : const Color.fromRGBO(0, 0, 0, 0.3),
+            color: isSelected
+                ? Theme.of(context).colorScheme.secondary
+                : const Color.fromRGBO(0, 0, 0, 0.3),
             borderRadius: const BorderRadius.all(Radius.circular(8))),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
