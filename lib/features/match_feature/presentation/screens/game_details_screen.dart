@@ -6,6 +6,7 @@ import 'package:foot_news/common/utils/game_tab_details.dart';
 import 'package:foot_news/common/utils/material_colors.dart';
 import 'package:foot_news/features/match_feature/data/local/collections/match_details_collection.dart';
 import 'package:foot_news/features/match_feature/presentation/bloc/game_details_bloc.dart';
+import 'package:foot_news/features/match_feature/presentation/screens/game_details_summary_screen.dart';
 import 'package:foot_news/features/match_feature/presentation/widget/timer/timer_cubit.dart';
 import 'package:foot_news/features/match_feature/presentation/widget/timer/timer_widget.dart';
 import 'package:foot_news/features/matches_feature/data/entity/match_entity.dart';
@@ -175,21 +176,27 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
   List<Widget> _getTabsScreen(MatchDetailsCollection? matchCollection) {
     List<Widget> tabs = [];
     for (var nav in matchCollection?.nav ?? []) {
-      if (nav != 'liveticker' &&
-          nav != 'knockout' &&
-          nav != null &&
-          nav != 'table' &&
-          nav != 'playoff' &&
-          nav != 'buzz') {
-        if (nav == 'head to head') {
-          tabs.add(Center(
-            child: Text(TabDetailsType.values.byName('h2h').getName()),
-          ));
-          continue;
-        }
-        tabs.add(Center(
-          child: Text(TabDetailsType.values.byName(nav).getName()),
-        ));
+      switch (nav) {
+        case 'matchfacts':
+          {
+            tabs.add(GameDetailsSummaryScreen(matchCollection: matchCollection!));
+            break;
+          }
+        case 'head to head':
+          {
+            tabs.add(Center(child: Text(TabDetailsType.values.byName('h2h').getName())));
+            break;
+          }
+        case 'lineup':
+          {
+            tabs.add(Center(child: Text(TabDetailsType.values.byName(nav).getName())));
+            break;
+          }
+        case 'stats':
+          {
+            tabs.add(Center(child: Text(TabDetailsType.values.byName(nav).getName())));
+            break;
+          }
       }
     }
     return tabs;
@@ -558,8 +565,10 @@ class GameDetailsTabBar extends SliverPersistentHeaderDelegate {
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.white54, width: 0.5))),
+      decoration:  BoxDecoration(
+        border: const Border(bottom: BorderSide(color: Colors.white54, width: 0.5)),
+        color: Theme.of(context).primaryColor,
+      ),
       child: _tabBar,
     );
   }

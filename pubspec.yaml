@@ -84,7 +84,17 @@ flutter:
      - assets/images/nav-ball.png
      - assets/images/team_placeholder.png
      - assets/images/network-error.jpg
+     - assets/images/icon-fans.png
+     - assets/images/icon-stadium.png
+     - assets/images/icon-time.png
+     - assets/images/icon-whistle.png
      - assets/images/stadium.png
+     - assets/images/match-goal.png
+     - assets/images/match-substitution.png
+     - assets/images/match-yellow-card.png
+     - assets/images/match-yellow-red-card.png
+     - assets/images/match-red-card.png
+     - assets/images/match-var.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
