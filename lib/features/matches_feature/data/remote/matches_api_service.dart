@@ -6,9 +6,7 @@ class MatchesApiService {
   MatchesApiService({required Dio dio}) : _dio = dio;
 
   Future<dynamic> getAllMatch(String date) async {
-    final parameter = {
-      "date": date,
-    };
+    final parameter = {"date": date, "timezone": "Asia/Tehran"};
     return _dio.get('matches', queryParameters: parameter);
   }
 }

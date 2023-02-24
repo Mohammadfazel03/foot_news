@@ -26,7 +26,7 @@ class Stats with _$Stats {
 class StatsBean with _$StatsBean {
   const factory StatsBean({
     @JsonKey(name: 'title') String? title,
-    @JsonKey(name: 'stats') List<Object>? stats,
+    @JsonKey(name: 'stats') List<Object?>? stats,
     @JsonKey(name: 'type') String? type,
     @JsonKey(name: 'highlighted') String? highlighted,
   }) = _StatsBean;
@@ -38,20 +38,25 @@ class StatsBean with _$StatsBean {
   StatsBeanEmbedded get toCollection {
     if (stats != null) {
       if (stats!.isNotEmpty) {
-        if (stats!.first is! StatsBean) {
-          var temp = stats!.map((e) => e.toString()).toList();
-          return StatsBeanEmbedded()
-            ..type = type
-            ..highlighted = highlighted
-            ..title = title
-            ..statsString = temp;
-        } else {
-          List<StatsBeanEmbedded> temp = stats!.map((e) => (e as StatsBean).toCollection).toList();
+        if (stats!.first is Map<String, Object?>) {
+          List<StatsBeanEmbedded?> temp = stats!.map((e) {
+            if (e != null) {
+              var temp = (StatsBean.fromJson(e as Map<String, Object?>));
+              return temp.toCollection;
+            }
+          }).toList();
           return StatsBeanEmbedded()
             ..type = type
             ..highlighted = highlighted
             ..title = title
             ..stats = temp;
+        } else {
+          var temp = stats!.map((e) => e?.toString()).toList();
+          return StatsBeanEmbedded()
+            ..type = type
+            ..highlighted = highlighted
+            ..title = title
+            ..statsString = temp;
         }
       }
     }

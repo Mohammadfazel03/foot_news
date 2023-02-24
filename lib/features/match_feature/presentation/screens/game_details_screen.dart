@@ -6,6 +6,7 @@ import 'package:foot_news/common/utils/game_tab_details.dart';
 import 'package:foot_news/common/utils/material_colors.dart';
 import 'package:foot_news/features/match_feature/data/local/collections/match_details_collection.dart';
 import 'package:foot_news/features/match_feature/presentation/bloc/game_details_bloc.dart';
+import 'package:foot_news/features/match_feature/presentation/screens/game_details_stats_screen.dart';
 import 'package:foot_news/features/match_feature/presentation/screens/game_details_summary_screen.dart';
 import 'package:foot_news/features/match_feature/presentation/widget/timer/timer_cubit.dart';
 import 'package:foot_news/features/match_feature/presentation/widget/timer/timer_widget.dart';
@@ -23,10 +24,6 @@ class GameDetailsScreen extends StatefulWidget {
 }
 
 class _GameDetailsScreenState extends State<GameDetailsScreen> {
-  // late TabController _tabController;
-  late int _currentCount;
-  late int _currentPosition;
-
   @override
   void initState() {
     context.read<GameDetailsBloc>().add(GameDetailsEventRefreshData(widget.matchEntity.id!));
@@ -162,6 +159,7 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
           nav != null &&
           nav != 'table' &&
           nav != 'playoff' &&
+          nav != 'injured' &&
           nav != 'buzz') {
         if (nav == 'head to head') {
           tabs.add(Tab(text: TabDetailsType.values.byName('h2h').getName()));
@@ -194,7 +192,7 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
           }
         case 'stats':
           {
-            tabs.add(Center(child: Text(TabDetailsType.values.byName(nav).getName())));
+            tabs.add(GameDetailsStatsScreen(statsEmbedded: matchCollection!.content!.stats!));
             break;
           }
       }
@@ -565,7 +563,7 @@ class GameDetailsTabBar extends SliverPersistentHeaderDelegate {
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
         border: const Border(bottom: BorderSide(color: Colors.white54, width: 0.5)),
         color: Theme.of(context).primaryColor,
       ),
