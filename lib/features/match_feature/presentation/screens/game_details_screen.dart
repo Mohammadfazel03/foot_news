@@ -6,6 +6,7 @@ import 'package:foot_news/common/utils/game_tab_details.dart';
 import 'package:foot_news/common/utils/material_colors.dart';
 import 'package:foot_news/features/match_feature/data/local/collections/match_details_collection.dart';
 import 'package:foot_news/features/match_feature/presentation/bloc/game_details_bloc.dart';
+import 'package:foot_news/features/match_feature/presentation/screens/game_details_h2h_screen.dart';
 import 'package:foot_news/features/match_feature/presentation/screens/game_details_stats_screen.dart';
 import 'package:foot_news/features/match_feature/presentation/screens/game_details_summary_screen.dart';
 import 'package:foot_news/features/match_feature/presentation/widget/timer/timer_cubit.dart';
@@ -182,7 +183,7 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
           }
         case 'head to head':
           {
-            tabs.add(Center(child: Text(TabDetailsType.values.byName('h2h').getName())));
+            tabs.add(GameDetailsH2HScreen(h2h: matchCollection!.content!.h2h!));
             break;
           }
         case 'lineup':
@@ -220,7 +221,7 @@ class GameDetailsHeader extends SliverPersistentHeaderDelegate {
       width: double.infinity,
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
-          border: Border(bottom: BorderSide(color: Colors.white54, width: 0.5))),
+          border: const Border(bottom: BorderSide(color: Colors.white54, width: 0.5))),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -329,7 +330,7 @@ class GameDetailsHeader extends SliverPersistentHeaderDelegate {
                             ),
                           ),
                         ),
-                        SizedBox(height: 8)
+                        const SizedBox(height: 8)
                       ],
                     ),
                   ),
@@ -379,7 +380,7 @@ class GameDetailsHeader extends SliverPersistentHeaderDelegate {
                           ? '${matchCollection?.header?.teams?[0]?.score}  -  ${matchCollection?.header?.teams?[1]?.score}'
                           : 'undefined',
                       style:
-                          TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+                          const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
                       maxLines: 1,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.fade,
@@ -411,8 +412,8 @@ class GameDetailsHeader extends SliverPersistentHeaderDelegate {
                   ] else ...[
                     Container(
                         constraints: const BoxConstraints(maxHeight: 15),
-                        child: TimerWidget(
-                          style: const TextStyle(
+                        child: const TimerWidget(
+                          style: TextStyle(
                               color: MaterialColors.redTimer,
                               fontSize: 12,
                               fontWeight: FontWeight.bold),
@@ -526,7 +527,7 @@ class GameDetailsHeader extends SliverPersistentHeaderDelegate {
                             ),
                           ),
                         ),
-                        SizedBox(height: 8)
+                        const SizedBox(height: 8)
                       ],
                     ),
                   ),

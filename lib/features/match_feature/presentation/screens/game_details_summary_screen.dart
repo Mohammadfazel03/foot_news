@@ -22,9 +22,9 @@ class GameDetailsSummaryScreen extends StatelessWidget {
           ]
         ],
         if (matchCollection.content?.matchFacts?.infoBox != null) ...[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-            child: const Text(
+          const Padding(
+            padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: Text(
               'Match Information',
               style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
             ),
@@ -265,29 +265,29 @@ class GameDetailsSummaryScreen extends StatelessWidget {
         textDirection: (event.isHome == true) ? TextDirection.ltr : TextDirection.rtl,
         children: [
           if (event.type == 'Goal' || event.type == 'goal') ...[
-            SizedBox(width: 8),
-            Text(event.timeStr ?? 'undefined', style: TextStyle(color: Colors.white, fontSize: 12)),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
+            Text(event.timeStr ?? 'undefined', style: const TextStyle(color: Colors.white, fontSize: 12)),
+            const SizedBox(width: 8),
             Image.asset('assets/images/match-goal.png',
                 height: 16,
                 width: 16,
                 color: (event.ownGoal == true) ? MaterialColors.redLose : MaterialColors.greenWin),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Flexible(
               child: Text(
                 event.assistStr == null
                     ? (event.nameStr ?? 'undefined')
                     : ('${event.nameStr ?? 'undefined'} (${event.assistStr})'),
-                style: TextStyle(color: Colors.white, fontSize: 12),
+                style: const TextStyle(color: Colors.white, fontSize: 12),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
           ] else if (event.type == 'Card' || event.type == 'card') ...[
-            SizedBox(width: 8),
-            Text(event.timeStr ?? 'undefined', style: TextStyle(color: Colors.white, fontSize: 12)),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
+            Text(event.timeStr ?? 'undefined', style: const TextStyle(color: Colors.white, fontSize: 12)),
+            const SizedBox(width: 8),
             Image.asset(
               (event.card == 'Yellow' || event.card == 'yellow')
                   ? 'assets/images/match-yellow-card.png'
@@ -297,40 +297,40 @@ class GameDetailsSummaryScreen extends StatelessWidget {
               height: 16,
               width: 16,
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Flexible(
               child: Text(
                 event.nameStr ?? 'undefined',
-                style: TextStyle(color: Colors.white, fontSize: 12),
+                style: const TextStyle(color: Colors.white, fontSize: 12),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
           ] else if (event.type == 'Substitution' || event.type == 'substitution') ...[
-            SizedBox(width: 8),
-            Text(event.timeStr ?? 'undefined', style: TextStyle(color: Colors.white, fontSize: 12)),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
+            Text(event.timeStr ?? 'undefined', style: const TextStyle(color: Colors.white, fontSize: 12)),
+            const SizedBox(width: 8),
             Image.asset(
               'assets/images/match-substitution.png',
               height: 16,
               width: 16,
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Flexible(
               child: Text(
                 '${event.swap?[0]?.name ?? 'undefined'} (${event.swap?[1]?.name ?? 'undefined'})',
-                style: TextStyle(color: Colors.white, fontSize: 12),
+                style: const TextStyle(color: Colors.white, fontSize: 12),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
           ] else if (event.type == 'AddedTime') ...[
             Expanded(
               child: Text(
                 event.minutesAddedStr ?? 'undefined',
-                style: TextStyle(color: Colors.white, fontSize: 12),
+                style: const TextStyle(color: Colors.white, fontSize: 12),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
@@ -345,7 +345,7 @@ class GameDetailsSummaryScreen extends StatelessWidget {
                   child: Align(
                     child: Text(
                       event.halfStrShort ?? 'undefined',
-                      style: TextStyle(color: Colors.white, fontSize: 12),
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,

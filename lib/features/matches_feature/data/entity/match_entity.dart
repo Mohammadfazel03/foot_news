@@ -1,3 +1,4 @@
+import 'package:foot_news/features/match_feature/data/local/collections/match_details_collection.dart';
 import 'package:foot_news/features/matches_feature/data/local/collections/match_collection.dart';
 import 'package:foot_news/features/matches_feature/data/remote/model/against_team_match.dart';
 import 'package:foot_news/features/matches_feature/data/remote/model/status_match.dart';
@@ -32,6 +33,18 @@ class MatchEntity with _$MatchEntity {
       status: StatusMatch.fromCollection(match.status!),
       timeTS: match.timeTs,
       isFavourite: match.isFavourite);
+
+  factory MatchEntity.fromEmbedded(MatchesBeanEmbedded match) => MatchEntity(
+      id: int.tryParse(match.matchUrl!.split('/')[2]),
+      leagueId: match.league?.id,
+      time: DateTime.tryParse(match.status!.utcTime!),
+      home: AgainstTeamMatch.fromCollection(match.home!),
+      away: AgainstTeamMatch.fromCollection(match.away!),
+      statusId: null,
+      tournamentStage: null,
+      status: StatusMatch.fromCollection(match.status!),
+      timeTS: null,
+      isFavourite: false);
 
   MatchCollection get toCollection => MatchCollection()
     ..away = away!.toCollection
