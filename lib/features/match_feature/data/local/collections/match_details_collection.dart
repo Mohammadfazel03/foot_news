@@ -265,13 +265,13 @@ class TeamRatingsBeanEmbedded {
 class LineupEventEmbedded {
   int? missedPenalty;
   int? savedPenalties;
-  int? yellowCard;
-  int? redCard;
-  int? assists;
-  int? goal;
-  int? ownGoal;
-  int? yellowRedCard;
-  LineupSubEmbedded? sub;
+  int? yellowCard;/////
+  int? redCard;/////
+  int? assists;///
+  int? goal;//
+  int? ownGoal;//
+  int? yellowRedCard;/////
+  LineupSubEmbedded? sub;////
 }
 
 @embedded

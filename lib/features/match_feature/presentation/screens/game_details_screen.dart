@@ -7,6 +7,7 @@ import 'package:foot_news/common/utils/material_colors.dart';
 import 'package:foot_news/features/match_feature/data/local/collections/match_details_collection.dart';
 import 'package:foot_news/features/match_feature/presentation/bloc/game_details_bloc.dart';
 import 'package:foot_news/features/match_feature/presentation/screens/game_details_h2h_screen.dart';
+import 'package:foot_news/features/match_feature/presentation/screens/game_details_lineup_screen.dart';
 import 'package:foot_news/features/match_feature/presentation/screens/game_details_stats_screen.dart';
 import 'package:foot_news/features/match_feature/presentation/screens/game_details_summary_screen.dart';
 import 'package:foot_news/features/match_feature/presentation/widget/timer/timer_cubit.dart';
@@ -137,7 +138,7 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
                                     color: Theme.of(context).colorScheme.secondary,
                                     indicatorHeight: 3,
                                     radius: 4),
-                                isScrollable: true,
+                                isScrollable: false,
                                 tabs: _getTabs(state.response!),
                               )),
                               pinned: true,
@@ -188,7 +189,7 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
           }
         case 'lineup':
           {
-            tabs.add(Center(child: Text(TabDetailsType.values.byName(nav).getName())));
+            tabs.add(GameDetailsLineupScreen(lineup: matchCollection!.content!.lineup!));
             break;
           }
         case 'stats':

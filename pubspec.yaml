@@ -95,6 +95,8 @@ flutter:
      - assets/images/match-yellow-red-card.png
      - assets/images/match-red-card.png
      - assets/images/match-var.png
+     - assets/images/placeholder_player.png
+     - assets/images/match-assists.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

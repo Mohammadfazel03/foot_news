@@ -81,6 +81,20 @@ class MaterialColors {
   });
   static const int _redTimerPrimaryValue = 0xFFFA4655;
 
+  static const MaterialColor blue = MaterialColor(_bluePrimaryValue, <int, Color>{
+    50: Color(0xFFE1F5FF),
+    100: Color(0xFFB4E5FF),
+    200: Color(0xFF82D5FF),
+    300: Color(0xFF50C4FF),
+    400: Color(0xFF2BB7FF),
+    500: Color(_bluePrimaryValue),
+    600: Color(0xFF189BEF),
+    700: Color(0xFF1A88DB),
+    800: Color(0xFF1877C6),
+    900: Color(0xFF1757A4),
+  });
+  static const int _bluePrimaryValue = 0xFF16AAFF;
+
   static const MaterialColor redTimerAccent = MaterialColor(_redTimerAccentValue, <int, Color>{
     100: Color(0xFFFFFFFF),
     200: Color(_redTimerAccentValue),

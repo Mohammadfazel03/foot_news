@@ -35,7 +35,7 @@ class MatchDetailsRepositoryImpl extends MatchDetailsRepository {
       .where()
       .matchIdEqualTo(matchId)
       .watch(fireImmediately: true)
-      .asyncMap((event) => (event.isEmpty ?? true) ? null : event.first);
+      .asyncMap((event) => event.isEmpty ? null : event.first);
 
   @override
   Future<int> insertMatch(MatchResult match) =>
